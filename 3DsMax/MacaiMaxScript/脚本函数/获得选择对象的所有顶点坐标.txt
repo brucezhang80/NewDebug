@@ -1,0 +1,8 @@
+问:有没有什么办法获得选择对象的所有顶点坐标 ?
+答:有.
+1、选择一个物体
+2、运行以下代码
+a = $.verts
+ns = newscript()
+for i in 1 to a.count do format (a[i].pos as string+"\n") to:ns
+3、任务完成。脚本会自动把坐标放到一个新的ms文件中。

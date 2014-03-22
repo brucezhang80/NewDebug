@@ -1,0 +1,41 @@
+内置对象集：
+
+对象集 （ObjectSet） 
+
+对象集是描述主场景对象种类的。
+
+objects -- 全部对象 
+
+geometry -- 标准的 3ds Max 分类（categorie）
+
+lights--灯光
+
+cameras--摄像机
+
+helpers--帮助物体
+
+shapes--二维形状
+
+systems--系统对象
+
+spacewarps--空间扭曲
+
+selection -- 当前选择的对象
+
+集合的属性
+接着上面的内容进行操作。
+输入selectionSets["盒子集"].center 返回"盒子集"中心 [0,-50,12.5]
+输入selectionSets["球体集"].count 返回"球体集"总数3
+输入selectionSets["盒子集"].max 返回"盒子集"最大范围[62.5,-37.5,25]
+输入selectionSets["盒子集"].min返回"盒子集"最小范围[-62.5,-62.5,0]
+
+
+
+
+三个box和一个球体一起操作:
+select geometry --选择所有的几何体 
+geometry.pos=[0,0,0]-把所有的几何体移动到时原点
+
+选择所有的对象，下面提供有两种方式：
+select $* --以路径名的方式选择所有的对象
+select objects --以内置对象集的方式选择所有的对象

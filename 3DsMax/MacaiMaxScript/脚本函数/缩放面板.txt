@@ -1,0 +1,19 @@
+on chkbtn_help changed theState do
+		(
+			if theState then
+			(
+				for h = rol_AngleRotateUVs.width to 320 by 5 do
+				(
+					rol_AngleRotateUVs.width = h
+					sleep 0.002
+				)
+			)
+			else
+			(
+				for h = rol_AngleRotateUVs.width to 120 by -5 do
+				(
+					rol_AngleRotateUVs.width = h
+					sleep 0.002
+				)
+			)
+		)

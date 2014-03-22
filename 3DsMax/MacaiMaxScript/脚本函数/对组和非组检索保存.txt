@@ -1,0 +1,107 @@
+fn Fn_SaveByGroup objs dir = 
+(
+	local groupArr = #(), s
+	for i in objs where isGroupHead i do 
+	(
+		setGroupOpen i false
+		append groupArr i --将组节点装入数组
+	)
+	for g in groupArr do 
+	(
+		s = for j in g.children collect j --收集组内字节点
+		append s g
+		makedir (dir + g.name)
+		saveNodes s (dir+g.name+ "/" + g.name+ ".max") quiet:on--保存组名
+	)
+)
+
+for o in objects do
+(
+	Fn_SaveByGroup o maxfilepath--将保存的组保存在max所在的路径
+)
+
+
+=======================
+
+/*保存组节点*/
+fn Fn_SaveByGroup obj maxpath saveGroupArr= 
+(
+	local groupArr = #(), s
+	--local saveGroupArr = #()
+	for i in obj where isGroupHead i do 
+	(
+		setGroupOpen i false
+		append groupArr i --将组节点装入数组
+	)
+	local j = 0
+	for g in groupArr do 
+	(
+		s = for j in g.children collect j --收集组内字节点
+		append s g
+		
+		group_max = maxpath + "\\" +g.name+ ".max"
+		if (not doesFileExist group_max) then
+		(
+			saveNodes s  group_max quiet:on--保存组名
+			append saveGroupArr group_max
+		)
+		else
+		(
+			j += 1
+			group_max = maxpath + "\\" + g.name+ (j as string)".max"
+			saveNodes s  group_max quiet:on
+			append saveGroupArr group_max
+		)
+	)
+	return saveGroupArr
+)
+
+/*保存除组之外的单物体对象*/
+fn Fn_SaveByOneObj obj maxpath saveNodeArr =
+(
+	local nodeArr = #()
+	--local saveNodeArr = #()
+	for o in obj where ((not isGroupHead o) and (not isGroupMember o)) do
+	(
+		append nodeArr o
+	)
+	
+	local i = 0
+	for n in nodeArr do
+	(
+		one_max = maxpath + "\\" + n.name+ ".max"
+		if (not doesFileExist one_max) then
+		(
+			saveNodes n  one_max quiet:on
+			append saveNodeArr one_max
+		)
+		else
+		(
+			i += 1
+			one_max = maxpath + "\\" + n.name+ (i as string)".max"
+			saveNodes n  one_max quiet:on
+			append saveNodeArr one_max
+		)
+	)
+	return saveNodeArr
+)
+
+/*保存每个物体对象*/
+fn Fn_SaveBySingleObj obj maxpath saveSingleArr =
+(
+	local only_max = ""
+	only_max = maxpath + "\\" + obj.name + ".max"
+	if (not doesFileExist only_max) then
+	(
+		saveNodes obj only_max quiet:on
+		append saveSingleArr only_max
+	)
+	else
+	(
+		k += 1
+		only_max = maxpath + "\\" + obj.name + (k as string)".max"
+		saveNodes obj only_max quiet:on
+		append saveSingleArr only_max
+	)
+	return saveSingleArr
+)

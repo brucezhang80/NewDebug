@@ -1,0 +1,10 @@
+
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\start.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\mainMcr.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\cab.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\welcome.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\3DFunctions.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\3D虚拟建模工具箱*.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\裁剪工具*.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\拖贴图自动命名*.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\命名检查与贴图2次幂检查修复*.*\" /q")

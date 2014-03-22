@@ -1,0 +1,5 @@
+	on btn_fresh pressed do	
+	(		
+		numgeom = geometry as array
+		lb_message.caption = "共有"+ (numgeom.count as string) +"个待导出物体"	
+	)

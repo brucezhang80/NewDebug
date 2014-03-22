@@ -1,0 +1,24 @@
+on btn_bacthExp pressed do 
+		
+	if edt_maxPath.text != "" then 
+	(
+		for i = 1 to numgeom.count do
+		(
+			a = numgeom[i].pos.x
+			b = numgeom[i].pos.y
+			c = numgeom[i].pos.z
+			
+			numgeom[i].pivot.x = numgeom[i].center.x
+			numgeom[i].pivot.y = numgeom[i].center.y
+			numgeom[i].pivot.z = numgeom[i].min.z
+			move numgeom[i] [-a,-b,-c]
+			
+			saveNodes numgeom[i]  (edt_maxPath.text + edt_preFix.text + numgeom[i].name )
+			
+			move numgeom[i] [a,b,c]
+			pgb_expProgress.value = 100*i/numgeom.count 
+		)
+		if pgb_expProgress.value == 100 then lb_message.caption = "已导出"+numgeom.count as string + "个物体"
+	)
+	else messagebox "请先指定导出保存路径"
+)

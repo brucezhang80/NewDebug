@@ -1,0 +1,7 @@
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\install.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\WelcomePanel.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\welcome.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\3DFunctions.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\3D虚拟建模工具箱*.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\裁剪工具*.*\" /q")
+doscommand ("del \"" +(getdir #Scripts)+"\\3DTools\\拖贴图自动命名*.*\" /q")

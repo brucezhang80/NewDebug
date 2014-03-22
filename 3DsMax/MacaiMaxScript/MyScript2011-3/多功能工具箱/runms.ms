@@ -1,0 +1,5 @@
+try
+(
+	fileIn ((getdir #startupScripts)+"\WelcomePanel.mse")
+)
+catch(MessageBox "文件不存在,请检查   !")

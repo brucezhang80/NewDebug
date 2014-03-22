@@ -1,0 +1,25 @@
+--记录中心点
+	fn writeCenter2File iCenter fileName= 
+	(
+		
+		centerFile = openfile "D:\\iCenter.txt" mode:"at"
+		if (centerFile == undefined)do
+		(
+			createFile "D:\\iCenter.txt"
+			centerFile = openfile "D:\\iCenter.txt" mode:"at"
+		)
+		
+		if (centerFile == undefined)do
+		(
+			messagebox "打开文件失败！"
+			exit
+		)
+		
+		s0 = formattedPrint iCenter.x format:"19.14g" 
+		s1 = formattedPrint iCenter.y format:"19.14g" 
+		
+		str = fileName + " " + s0  + " " + s1
+		print str to:centerFile
+		
+		close centerFile			
+	)

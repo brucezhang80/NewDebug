@@ -1,0 +1,92 @@
+
+
+
+struct aMat (theInstance, theDiffusemap)
+		max select all
+		---转化网格
+		macros.run "Modifier Stack" "Convert_to_Mesh"
+		clearselection()
+		
+		numberobj = 0
+		--PickObj.text=obj.name
+		--加入批处理，而不是单物体处理
+		for obj in objects do
+		(
+			numberobj += 1
+			print "\n"
+			print ("物体" + numberobj as string +": "+ obj.name)
+			
+			local theMat, uniqueMats, mapTo, theObj
+			
+-- 			if classof obj != Editable_mesh do
+-- 			if canConvertTo obj mesh then
+-- 				convertToMesh obj
+-- 			else
+-- 				throw "Cannot convert object to Editable Mesh"
+			
+			theMat=obj.material --获取材质
+			
+			if classof theMat != Multimaterial do 
+				throw ("物体材质"+theMat.name+"不是多维材质！")--yy修改
+				print ("之前子材质数目： 【"+theMat.numsubs as string + "】")
+			
+			local SubMatUsed=#()--收集用到的子材质
+			for f=1 to obj.numfaces do
+				SubMatUsed[getFaceMatID obj f]=true--获得物体面ID号
+				print ("物体最多ID数目: 【"+SubMatUsed.count as string + "】")
+			
+			uniqueMats=#()
+			mapTo=#()
+			for m=1 to theMat.numsubs do--材质数
+			(	
+				if SubMatUsed[m] != true do continue
+				local thisMatDBitmap=undefined
+				if classof theMat[m] == StandardMaterial do
+					if classof theMat[m].diffusemap == Bitmaptexture do
+						thisMatDBitmap=theMat[m].diffusemap.filename
+					
+				if thisMatDBitmap == undefined do
+				(	
+					append uniqueMats (aMat theMat[m] thisMatDBitmap)
+					mapTo[m]=uniqueMats.count
+					continue
+				)
+				local foundMatch=false
+				for p=1 to uniqueMats.count do
+					if thisMatDBitmap == uniqueMats[p].theDiffusemap do
+					(	mapTo[m]=p
+						foundMatch=true
+						continue
+					)
+				if not foundMatch do 
+				(	append uniqueMats (aMat theMat[m] thisMatDBitmap)
+					mapTo[m]=uniqueMats.count
+				)
+			)
+			print ("优化后子材质数目: 【"+ uniqueMats.count as string + "】")
+		
+			local NewMMat=Multimaterial numsubs:uniqueMats.count name:obj.name
+			for m=1 to uniqueMats.count do
+				NewMMat[m]=copy uniqueMats[m].theInstance
+			for f=1 to obj.numfaces do
+			(	local oldID=getFaceMatID obj f
+				--YY修改
+				if oldID != undefined do
+				(
+				--end
+					setFaceMatID obj f mapTo[oldID]
+				)
+			)
+		
+			obj.material=NewMMat
+			update obj
+			--btn_DoMat.text= "第一步：优化材质"
+			
+			meditMaterials[1]=obj.material
+				 a=meditMaterials[1].materialIDList
+				 for i = 1 to a.count do 
+					(
+					showTextureMap meditMaterials[1].materialList[a[i]] on
+					)
+		)
+		clearselection()

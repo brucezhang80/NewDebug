@@ -1,0 +1,110 @@
+------------------
+classof obj.material==Multimaterial --多维材质
+-----------------
+scenematerials
+-----------------
+for mat in scenematerials do 
+		(
+		  if ( classof mat  == Multimaterial) then (
+			  for i=1 to mat.numsubs do (
+
+				if mat[i]!=undefined then (
+					--收集每一个子材质
+					append allSubMats mat[i]
+				)
+				else (
+					messagebox "不应当出现无定义材质"
+				)
+			  )
+		  )
+		  else (
+		      --普通材质，我们先打印一下他的名字
+			 messagebox "在场景材质中，不应当出现普通材质"
+		  )
+----------------------
+		case of
+		(
+			(num1 < num2): -1
+			(num1 > num2): 1
+			default: 0
+		)
+-----------------------
+fn ChangeAllSubMatsFilePathAndName allsubmats = (
+		 tilepath = maxfilepath
+		
+		
+		 for mat in allsubmats do (
+            --带路径的文件名 
+			 filepathname = mat.diffusemap.filename
+			
+			--获取文件名字
+		       filename0 = filenameFromPath filepathname
+			   filename = MyToUpper filename0
+			 
+			    --这里修改子材质的对应的diffusemap的文件名字(包括路径)
+				mat.diffusemap.filename= tilepath+filename
+
+				--这里修改贴图的名字，就是文件名字，不要后缀
+				mat.diffusemap.name = getFileNameFile filename
+                mat.name  = mat.diffusemap.name 
+		 )
+	)
+
+---------------------
+--查找在数组里面是否已经存在这个文件名
+index = findItem g_oldfilenames filename
+
+--------------------------
+--这里修改子材质的对应的diffusemap的文件名字(包括路径)
+mat.diffusemap.filename= tilepath+newname
+--这里修改贴图的名字，就是文件名字，不要后缀
+mat.diffusemap.name = getFileNameFile newname
+mat.name  = mat.diffusemap.name
+
+-----------------------------
+ 3dsmax -U MAXScript rendercams.ms 此示例命令行将启动 3ds Max 可执行文件，启用 MAXScript，然后让其运行启动脚本 rendercams.ms。 
+
+----------------------
+You can launch 3ds Max from a DOS command line and have it run a specified launch script, which is useful for tasks such as unattended batch-rendering. This capability uses the existing -U command line switch that names a utility to be run when 3ds Max is started. The -U switch allows an optional extra argument which, for MAXScript, is taken to be the name of the launch script to run. The case of MAXScript must be as shown in the following example:
+
+
+c:\3dsmax\3dsmax -U MAXScript rendercams.ms
+
+ 
+This example command line would launch the 3ds Max executable in c:\3dsmax, start MAXScript, and then have it run the launch script rendercams.ms.
+
+The following example launch script loads two scenes, renders frames from each of the cameras in them, and then quits 3ds Max:
+
+
+loadMaxFile "foo.max"
+for c in cameras do render camera:c outputfile:("foo_"+c.name+".bmp")
+loadMaxFile "baz.max"
+for c in cameras do render camera:c outputfile:("baz_"+c.name+".bmp")
+quitMax #noPrompt
+
+-------------------------------
+rename multi/sub materials
+
+--get the current selected material
+--in the material editor slot
+yourmaterial = medit.GetCurMtl()
+
+numberOfSubMats = yourmaterial.numsubs
+--how many submaterials exist in the selected material
+
+for i = 1 to numberOfSubmats do
+(
+try
+(
+bitmapName = getFilenameFile yourmaterial[i].diffusemap.filename
+yourmaterial[i].name = bitmapName
+yourmaterial.names[i] =bitmapName
+)
+catch (
+print ("could not set name for this material" + yourmaterial[i].name)
+)
+)
+---------end code snippet
+
+-----------------------------------------
+

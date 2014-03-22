@@ -1,0 +1,80 @@
+try destroyDialog s_toolgo catch()
+
+rollout s_toolgo_mini "" width:92 height:16(
+	local scr = (dotNetClass "System.Windows.Forms.Screen").PrimaryScreen.Bounds
+	local ww = scr.Width
+	local wh = scr.Height
+	fn iHideTop key vol = (
+		if key == "s_toolgo"then (
+			dpos = GetDialogPos s_toolgo
+			if vol == 0 then vol = dpos.y-wh
+			SetDialogPos s_toolgo [dpos.x,vol]
+		)
+	)
+	fn getXY vol = (
+		if vol == 1 then 
+			(GetDialogPos s_toolgo).x
+			else (GetDialogPos s_toolgo).y
+		
+	)
+	label lab "UI3.2 POLY建模" width:85 height:14 pos:[5,2]
+		on s_toolgo_mini mousemove pos do(
+			iHideTop "s_toolgo" (GetDialogPos s_toolgo_mini).y
+			try destroyDialog s_toolgo_mini catch()
+		)
+)--end rollout
+
+
+rollout s_toolgo "" width:200 height:100
+(
+	button btnX "unhide" pos:[2,2] width:38 height:20
+	Timer clock "testClock" pos:[13,27] width:24 height:24 interval:500 --tick once a second
+    local mousedd = false
+    local ThePos = [0,0]
+	local mtNub = 1
+
+-----------------------------------------------------------------------------------------
+	--rollout Action
+-----------------------------------------------------------------------------------------
+
+	on s_toolgo open do
+		(
+	)
+	on s_toolgo close do
+	( 
+		try destroyDialog s_toolgo_mini catch()	
+	)--end on
+	on s_toolgo mouseMove pos do
+	(
+		mtNub = 1
+		if mousedd do SetDialogPos   s_toolgo  (mouse.screenpos - thePos) --//拖拽窗口用
+	)
+	on s_toolgo lbuttonup pos do
+		mousedd = false  --//拖拽窗口用
+	on s_toolgo lbuttondown pos do
+		(mousedd = true ; ThePos = pos)  --//拖拽窗口用
+	on s_toolgo rbuttondown mousehitpoint do
+		destroydialog s_toolgo  --//关闭拖拽窗口
+	on btnX pressed do
+		if btnX.text == "unhide" then btnX.text = "Autohide" else btnX.text = "unhide"
+	on clock tick do
+	(
+				tpos = GetDialogPos s_toolgo
+				musPos = mouse.screenpos
+				dlgPos = GetDialogPos s_toolgo
+				dlgSize = GetDialogSize s_toolgo
+				if btnX.text =="unhide" and mtNub < 5 then (
+					
+					if (musPos.y - dlgPos.y) > (dlgSize.y+60) or (musPos.y - dlgPos.y) < -60 or (musPos.x-dlgPos.x) > (dlgSize.x+60) or (musPos.x-dlgPos.x) < -60 then (
+						valUp = mtNub +1
+						mtNub = valUp
+						if valUp == 2 then (
+							showX = (GetDialogPos s_toolgo).x+(s_toolgo.width-s_toolgo_mini.width)/2
+							createdialog s_toolgo_mini pos:[showX,(GetDialogPos s_toolgo).y]style:#() bgcolor:[100,149,237]fgcolor:white
+							s_toolgo_mini.iHideTop "s_toolgo" 0
+						)
+					)
+				)
+			)
+)
+createdialog s_toolgo style:#()

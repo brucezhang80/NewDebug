@@ -1,0 +1,31 @@
+global allmax = #()
+get_dir=GetSavePath()
+temp=(get_dir+"/*.max")
+allmax=GetFiles(temp)--把读取的max文件放入一个数组中
+
+out_name=GetSaveFileName caption:"Save A File"\
+         types:"TXT(*.txt)"
+
+out_file = openfile out_name mode:"a"--创建文件后继续打开这个文件以便下面写入
+if (out_file == underfined )then --打开文件失败
+(
+	 createfile out_name--创建这个文件
+	 out_file = openfile out_name mode:"a"
+)
+
+	 for i in allmax do
+	 (
+		loadmaxfile i
+		pHeight=objects[1].max.z-objects[1].min.z
+		pName=getfilenamefile i
+
+		--str1 = formattedPrint pName 
+		--str2 = formattedPrint pHeight
+		str= (pName as string) + "   " + (pHeight as string)
+		 
+		format str  to:out_file
+		format "\n" to:out_file
+
+ )
+ close out_file
+

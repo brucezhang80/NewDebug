@@ -1,0 +1,13 @@
+--获取Bitmap和Xref路径，对应3ds max里Configure Paths对话框里Bitmaps和Xref选项卡
+fn GetAllBitmapPaths = 
+	(
+		allSubPaths=#()
+		append allSubPaths maxfilepath
+		num = mappaths.count()
+		for m=1 to num do (
+		     path2 = mapPaths.get(m)
+			append allSubPaths (path2+"\\")
+		)
+		
+		return allSubPaths
+	)

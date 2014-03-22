@@ -1,0 +1,5 @@
+on export open do --export是插件名
+(
+	numgeom = geometry as array
+	lb_message.caption = "共有"+ (numgeom.count as string) +"个待导出物体"	
+)

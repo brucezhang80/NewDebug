@@ -1,0 +1,10 @@
+for i in $ do(
+channelInfo.CopyChannel i 3 3
+channelInfo.PasteChannel i 3 1
+ channelInfo.NameChannel i 3 1 "-none-"
+ )
+for i in $ do
+(
+meditMaterials[1] = copy i.material.bakedMaterial
+i.material = meditMaterials[1]
+)

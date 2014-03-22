@@ -1,0 +1,16 @@
+ --”√.NET∑Ω∑®
+ 
+  for i in TransparentFile do
+(
+DotNetString=DotNetObject "System.String" str
+pString=(getfilenamefile i)+".jpg"
+nString=(getfilenamefile i)+".png"
+str=DotNetString.Replace pString nString
+)
+ 
+(DotNetClass"System.IO.File").Delete xfile
+
+ sw= DotNetObject "System.IO.StreamWriter" xFile false
+ sw.WriteLine str
+ sw.Close()
+ sw.Dispose()

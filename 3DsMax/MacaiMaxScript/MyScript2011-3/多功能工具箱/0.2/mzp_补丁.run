@@ -1,0 +1,10 @@
+name "3D虚拟建模工具箱修正补丁"
+version 3.1 
+
+treeCopy "3DTools" to $scripts
+
+move "命名检查与贴图2次幂检查修复*.mse" to $Scripts\3DTools
+move "bug*.ms" to $Scripts\3DTools
+
+run "$Scripts\\3DTools\\bug0.1.ms"
+drop "$Scripts\\3DTools\\bug0.1.ms"

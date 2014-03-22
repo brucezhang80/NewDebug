@@ -1,0 +1,15 @@
+fn getIDsOfElement obj =
+( --此函数用来获取每个element中的第一个face ID
+select obj 
+faceNum=polyOp.getNumFaces $
+ids=#{1} --储存face id
+tempID=1
+while tempID <= faceNum do 
+( polyOp.setFaceSelection $ #{tempID} 
+  $.EditablePoly.SelectElement()
+  selFace=polyOp.getFaceSelection $
+  ids[tempID]=true
+  tempID+=selFace.numberset
+)
+ids as array --把结果转换成数组，便于使用
+)

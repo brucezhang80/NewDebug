@@ -1,0 +1,9 @@
+fn formatNumStr num d:7 =
+(
+        str = num as string
+        if str.count < d then 
+	   for i in 1 to d - str.count 
+		  do str = "0" + str
+        str
+)
+for i in 1 to selection.count do selection[i].name = "obj_" + formatNumStr i d:5

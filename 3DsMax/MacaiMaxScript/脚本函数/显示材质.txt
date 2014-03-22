@@ -1,0 +1,100 @@
+	max select all
+	for object in selection do
+	(
+		if (classOf object.material == Standard) then
+		(
+			object.material.showInViewport = off
+		)
+		else if (classOf object.material == Multimaterial) then
+		(
+			for b = 1 to b = object.material.numsubs do
+			(
+				if (classOf object.material.materialList[b] == Standard) then
+				(
+					object.material.showInViewport = off
+				)
+			)
+		)
+	)
+	clearselection()
+
+----------------------------------
+
+for object in selection do
+                
+                    if (classOf object.material == Standard) then
+                        (
+                        object.material.showInViewport = on                            
+                        object.material.selfIllumAmount = 100
+                        )
+                    else if (classOf object.material == Multimaterial) then
+                        (
+                            for b = 1 to b = object.material.numsubs do
+                            (
+                                if (classOf object.material.materialList[b] == Standard) then
+                                ( 
+                                    object.material.showInViewport = on
+                                    object.material.selfIllumAmount = 100
+                                )
+                            )
+                        )
+
+--------------------
+for theNode in (Selection as Array) where ((superClassOf theNode) == GeometryClass) do
+        (
+            local theMaterial = theNode.material
+    
+            if ((classOf theMaterial) == Standard) then
+            (    
+                theMaterial.selfIllumAmount = 100
+                showTextureMap theMaterial true
+            )
+            else if ((classOf theMaterial) == MultiMaterial) then
+            (
+                for theSubMat in theMaterial.materialList where ((classOf theSubMat) == Standard) do
+                (
+                    theSubMat.selfIllumAmount = 100
+                    showTextureMap theSubMat true
+                )
+            )
+        )
+        updateToolbarButtons()
+
+-----
+on execute do
+    (
+        for theNode in (Selection as Array) where ((superClassOf theNode) == GeometryClass) do
+        (
+            local theMaterial = theNode.material
+    
+            if ((classOf theMaterial) == Standard) then
+            (    
+                theMaterial.selfIllumAmount = 100
+    
+                if ((classOf theMaterial.diffuseMap) == BitmapTexture) then
+                (
+                    theMaterial.opacityMap = theMaterial.diffuseMap
+                    theMaterial.opacityMap.monoOutput = 1
+                )
+    
+                showTextureMap theMaterial true
+            )
+            else if ((classOf theMaterial) == MultiMaterial) then
+            (
+                for theSubMat in theMaterial.materialList where ((classOf theSubMat) == Standard) do
+                (
+                    theSubMat.selfIllumAmount = 100
+    
+                    if ((classOf theSubMat.diffuseMap) == BitmapTexture) then
+                    (
+                        theSubMat.opacityMap = theSubMat.diffuseMap
+                        theSubMat.opacityMap.monoOutput = 1
+                    )
+    
+                    showTextureMap theSubMat true
+                )
+            )
+        )
+    
+        updateToolbarButtons()
+    )

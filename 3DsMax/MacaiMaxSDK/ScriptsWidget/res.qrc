@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/ImportExport.png</file>
+        <file>images/Material.png</file>
+        <file>images/ObjectEdit.png</file>
+        <file>images/Other.png</file>
+        <file>images/Rename.png</file>
+        <file>images/SceneCheck.png</file>
+        <file>images/Faverit.png</file>
+        <file>toolbox.xml</file>
+    </qresource>
+</RCC>

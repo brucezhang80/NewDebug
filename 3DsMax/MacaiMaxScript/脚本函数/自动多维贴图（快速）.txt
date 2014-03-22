@@ -1,0 +1,15 @@
+
+theMat = multiMaterial numSubs:(theFilenames.count) name:"MultiSub"
+
+for i = 1 to theFilenames.count do
+   (
+   theMap = openBitmap theFilenames[i]
+   tmpMat = theMat.materialList[i]
+   tmpMat.diffuseMap = (bitMaptexture bitMap:theMap) 
+   assignNewName tmpMat.diffuseMap
+   tmpMat.glossiness = 0
+   theMat.materialList[i] = tmpMat
+   )
+   
+
+meditMaterials[1] = theMat

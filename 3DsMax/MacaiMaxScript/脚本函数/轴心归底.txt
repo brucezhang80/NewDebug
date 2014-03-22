@@ -1,0 +1,16 @@
+--轴心归底
+	fn CenterPiv i =
+	(
+		CenterPivot i  --轴心归中心
+		i.pivot.z = i.min.z  --轴心的Z轴等于物体最底点
+    )
+
+--轴心归零
+on btn5 pressed do
+(
+	for obj in selection do
+	(
+		CenterPivot obj
+		obj.pivot.z=0
+	)
+)
