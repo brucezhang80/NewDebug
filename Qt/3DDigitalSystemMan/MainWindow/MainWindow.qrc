@@ -1,0 +1,42 @@
+<RCC>
+    <qresource prefix="/images" lang="zh">
+        <file alias="nopic.jpg">images/nopic.jpg</file>
+        <file alias="script.jpg">images/script.jpg</file>
+    </qresource>
+    <qresource prefix="/icon" lang="zh">
+        <file alias="add_model.png">icon/add_model.png</file>
+        <file alias="add_script.png">icon/add_script.png</file>
+        <file alias="delete.png">icon/delete.png</file>
+        <file alias="edit_model.png">icon/edit_model.png</file>
+        <file alias="edit_script.png">icon/edit_script.png</file>
+        <file alias="favorites.png">icon/favorites.png</file>
+        <file alias="material.png">icon/Material.png</file>
+        <file alias="model.png">icon/model.png</file>
+        <file alias="moveto.png">icon/moveto.png</file>
+        <file alias="open_model.png">icon/open_model.png</file>
+        <file alias="run.png">icon/run.png</file>
+        <file alias="run_plugin.png">icon/run_plugin.png</file>
+        <file alias="view_fullscreen.png">icon/view_fullscreen.png</file>
+        <file alias="view_in_max.png">icon/view_in_max.png</file>
+        <file alias="setting_model.png">icon/setting_model.png</file>
+        <file alias="setting_script.png">icon/setting_script.png</file>
+        <file alias="setting_system.png">icon/setting_system.png</file>
+        <file alias="setting_update.png">icon/setting_update.png</file>
+        <file alias="refresh.png">icon/refresh.png</file>
+        <file alias="data_commit.png">icon/data_commit.png</file>
+        <file alias="data_history.png">icon/data_history.png</file>
+        <file alias="data_plan.png">icon/data_plan.png</file>
+        <file alias="setting_support.png">icon/setting_support.png</file>
+        <file alias="setting_data.png">icon/setting_data.png</file>
+    </qresource>
+    <qresource prefix="/css" lang="zh">
+        <file alias="css.qss">css/css.qss</file>
+    </qresource>
+    <qresource prefix="/" lang="zh">
+        <file>data/model.txt</file>
+        <file>data/script.txt</file>
+    </qresource>
+    <qresource prefix="/lang" lang="zh">
+        <file alias="qt_zh_cn">lang/qt_zh_CN.qm</file>
+    </qresource>
+</RCC>

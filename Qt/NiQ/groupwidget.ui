@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>GroupWidget</class>
+ <widget class="QWidget" name="GroupWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>104</width>
+    <height>18</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+#GroupWidget
+{
+	border-right:1px solid rgb(170,170,170);
+	background-color:rgba(0, 90, 140, 255);
+}
+#GroupWidget:hover
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:1,stop:0 rgba(0, 90, 140, 255), stop:0.5 rgba(130, 200, 250, 255),stop:0.8 rgba(0, 180, 250, 255));
+}
+#GroupWidget QLabel
+{
+	font-size:11px;
+	font-weight:normal;
+	border:none;
+	color:rgb(240,240,240);
+}
+#GroupWidget QLabel:hover
+{
+	color:rgb(255,255,151);
+
+}
+#GroupWidget QPushButton
+{
+	font-size:12px;
+	font-weight:normal;
+	color:rgb(240,240,240);
+
+	border:0px groove rgba(0, 90, 140, 255);
+}
+#GroupWidget QPushButton:pressed
+{
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(130, 200, 250, 255), stop:1 rgba(130, 200, 250, 255));
+	color:rgb(0,0,0);
+}
+#GroupWidget QPushButton:hover
+{
+
+}
+
+#GroupWidget QToolButton
+{
+	font-size:12px;
+	font-weight:normal;
+	color:rgb(240,240,240);
+
+	border:0px groove rgba(0, 90, 140, 255);
+
+}
+#GroupWidget QToolButton:hover
+{
+
+}
+
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="lb_groupName">
+       <property name="text">
+        <string>Group Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QPushButton" name="btn_sendFiles">
+       <property name="maximumSize">
+        <size>
+         <width>30</width>
+         <height>16</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>Send Files</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="icon">
+        <iconset resource="res.qrc">
+         <normaloff>:/images/send-file.png</normaloff>:/images/send-file.png</iconset>
+       </property>
+       <property name="iconSize">
+        <size>
+         <width>20</width>
+         <height>16</height>
+        </size>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

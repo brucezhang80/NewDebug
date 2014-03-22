@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/buddy-blue.png</file>
+        <file>images/buddy-green.png</file>
+        <file>images/wlm-alt.png</file>
+        <file>images/user_man.png</file>
+        <file>images/user_woman.png</file>
+        <file>images/user_settings.png</file>
+        <file>images/user_chat.png</file>
+        <file>images/triangle-bottom.png</file>
+        <file>images/triangle-right.png</file>
+        <file>images/send-file.png</file>
+    </qresource>
+</RCC>

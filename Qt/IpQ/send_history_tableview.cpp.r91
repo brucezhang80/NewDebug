@@ -1,0 +1,202 @@
+#include "send_history_tableview.h"
+#include "send_file_treewidget.h"
+#include "constants.h"
+#include "system.h"
+#include "macai.h"
+
+#include <QApplication>
+#include <QDir>
+#include <QFileInfo>
+#include <QFileIconProvider>
+#include <QHeaderView>
+#include <QMenu>
+#include <QSqlRecord>
+#include <QProcess>
+#include <QDesktopServices>
+#include <QUrl>
+#include <QDebug>
+
+SendHistoryTableView::SendHistoryTableView(QWidget *parent) :
+    QTableView(parent)
+{
+    setSelectionBehavior( QAbstractItemView::SelectRows ); //设置选择行为，以行为单位
+    setSelectionMode( QAbstractItemView::SingleSelection );//设置选择模式，选择单行
+//    this->setAlternatingRowColors(false);
+    QHeaderView* vHeader = this->verticalHeader();
+    vHeader->setDefaultSectionSize(20);
+//    vHeader->setResizeMode(QHeaderView::Fixed);//固定列高,不可拖拉
+    this->setFocusPolicy(Qt::NoFocus);
+    sortByColumn(2, Qt::AscendingOrder);
+    setEditTriggers ( QAbstractItemView::NoEditTriggers );
+
+    if( !createConnectionDB() )
+    {
+        qDebug() << "can not connect database.";
+        return;
+    }
+
+    m_model = new QSqlTableModel(this, m_db);
+    initializeModel(m_model);
+
+    //name
+    resizeColumnToContents(0);
+    //size
+    resizeColumnToContents(1);
+    //time
+    resizeColumnToContents(2);
+    //reciever
+    horizontalHeader()->setResizeMode(3, QHeaderView::Stretch);
+    //state
+    resizeColumnToContents(4);
+
+    setConnect();
+}
+
+SendHistoryTableView::~SendHistoryTableView()
+{
+    m_db.close();
+    m_db.removeDatabase(m_dbName);
+}
+
+bool SendHistoryTableView::createConnectionDB()
+{
+    m_db = QSqlDatabase::addDatabase("QSQLITE", SqlNameFileHistory);
+    m_dbName = System::localIPQDocument() + SqlDatabaseName;
+    m_db.setDatabaseName(m_dbName);
+    if (!m_db.open())
+    {
+        QMessageBox::critical(0, qApp->tr("Cannot open database"),
+            qApp->tr("Unable to establish a database connection.\n"
+                     "IPQ needs SQLite support. Please install "
+                     "SQLite driver. \nClick Cancel to exit."), QMessageBox::Cancel);
+        return false;
+    }
+    QStringList tableList = m_db.tables();
+    QSqlQuery query(m_db);
+    if(!tableList.contains(SqlTableFileHistory))
+    {
+        QString createTable = QString("create table %1 (id INTEGER PRIMARY KEY AUTOINCREMENT,"
+             "filename varchar(64), size varchar(64), "
+             "time varchar(64), reciever varchar(256), state varchar(64) )").arg(SqlTableFileHistory);
+        if ( !query.exec(createTable) )
+        {
+            QMessageBox::warning(this, tr("create table error"), tr("Error:")+query.lastError().text(), QMessageBox::Ok);
+            return false;
+        }
+    }
+
+    return true;
+}
+
+void SendHistoryTableView::initializeModel(QSqlTableModel *model)
+{
+    model->setTable(SqlTableFileHistory);
+    model->setEditStrategy(QSqlTableModel::OnManualSubmit);
+//    model->setEditStrategy(QSqlTableModel::OnRowChange);
+    model->select();
+    model->removeColumn(0);
+
+//    model->setHeaderData(0, Qt::Horizontal, QObject::tr("id"));
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("Name"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("Size"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("Time"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("Reviever"));
+    model->setHeaderData(4, Qt::Horizontal, QObject::tr("State"));
+
+    this->setModel(model);
+}
+
+void SendHistoryTableView::setConnect()
+{
+    connect(Macai::sendFileTreeWidget, SIGNAL(updateHistoryLog(QList<QString>)),
+            this, SLOT(updateHistoryLogs(QList<QString>)) );
+}
+
+void SendHistoryTableView::contextMenuEvent(QContextMenuEvent *event)
+{
+    QMenu *popMenu = new QMenu(this);
+    QAction *openAct = popMenu->addAction(QIcon(":/images/file-open.png"),tr("打开"));
+    popMenu->addSeparator();
+    QAction *deleteAct = popMenu->addAction(QIcon(":/images/file-delete.png"),tr("删除"));
+    popMenu->addSeparator();
+    QAction* refreshAct = popMenu->addAction(QIcon(":/images/file-refresh.png"),tr("刷新"));
+
+    // 需要减去表头高度
+    int row = this->rowAt( mapFromGlobal(QCursor::pos()).y()-this->horizontalHeader()->height() );
+
+    if( row == -1)
+    {
+        this->clearSelection();;
+        openAct->setEnabled(false);
+        deleteAct->setEnabled(false);
+    }
+    else
+    {
+        openAct->setEnabled(true);
+        deleteAct->setEnabled(true);
+    }
+
+    connect(openAct, SIGNAL( triggered() ), this, SLOT( openFile() ));
+    connect(deleteAct, SIGNAL( triggered() ), this, SLOT( deleteFile() ));
+    connect(refreshAct, SIGNAL( triggered() ), this, SLOT( refresh() ));
+    popMenu->exec(cursor().pos());
+}
+
+void SendHistoryTableView::insertTable(const QList<QString> &logs)
+{
+    QString filename = logs.at(0);
+    QString filesize = logs.at(1);
+    QString time = logs.at(2);
+    QString recver = logs.at(3);
+    QString state = logs.at(4);
+    int row = m_model->rowCount();
+    m_model->insertRow(row);
+    for(int i = 0; i < logs.count(); ++i)
+    {
+        QString strValue = logs.at(i);
+        m_model->setData(m_model->index(row, i), strValue);  //给新行添加属性值,字段在第i列上
+    }
+    m_model->submitAll(); //直接提交
+}
+
+void SendHistoryTableView::updateHistoryLogs(const QList<QString> &logs)
+{
+    insertTable(logs);
+}
+
+void SendHistoryTableView::openFile()
+{
+    int curRow = this->currentIndex().row();
+    if( curRow != -1 )
+    {
+        QString filename = m_model->record(curRow).value("filename").toString();
+        QFileInfo fileInfo(filename);
+        QDir dir(fileInfo.absolutePath());
+//        qDebug() << fileInfo.absolutePath();
+        QDesktopServices::openUrl( QUrl::fromLocalFile(dir.toNativeSeparators(fileInfo.absolutePath())) );
+//        QProcess *process = new QProcess(this);
+//        QString program = "explorer.exe ";
+//        QString nativeName = dir.toNativeSeparators(dir.absolutePath());
+//        process->startDetached( program, QStringList() << fileInfo.absolutePath() );
+    }
+}
+
+void SendHistoryTableView::deleteFile()
+{
+    int curRow = this->currentIndex().row();
+    qDebug() << curRow;
+    if( curRow != -1 )
+    {
+        m_model->removeRow(curRow);   //删除一行
+        m_model->submitAll();
+    }
+
+}
+
+void SendHistoryTableView::refresh()
+{
+    m_model->select();
+}
+
+
+

@@ -1,0 +1,33 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/IPQ.png</file>
+        <file>images/buddy-blue.png</file>
+        <file>images/buddy-green.png</file>
+        <file>images/user_chat.png</file>
+        <file>images/file-open.png</file>
+        <file>images/triangle-bottom.png</file>
+        <file>images/triangle-right.png</file>
+        <file>images/user_man.png</file>
+        <file>images/user_settings.png</file>
+        <file>images/user_woman.png</file>
+        <file>images/file-add.png</file>
+        <file>images/file-history.png</file>
+        <file>images/file-send.png</file>
+        <file>images/settings.png</file>
+        <file>images/file-export.png</file>
+        <file>images/start-send.png</file>
+        <file>images/file-recieve.png</file>
+        <file>images/file-delete.png</file>
+        <file>images/file-refresh.png</file>
+        <file>images/system-config.png</file>
+        <file>images/system-help.png</file>
+        <file>themes/default.qss</file>
+        <file>themes/default - 副本.qss</file>
+        <file>images/edit.png</file>
+        <file>images/setting.png</file>
+        <file>images/system-folder-config.png</file>
+        <file>images/system-message.png</file>
+        <file>lang/en_US.qm</file>
+        <file>lang/zh_CN.qm</file>
+    </qresource>
+</RCC>

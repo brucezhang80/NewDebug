@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TrayNotifyDlg</class>
+ <widget class="QDialog" name="TrayNotifyDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>229</width>
+    <height>135</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+#TrayNotifyDlg
+{
+	border-right:1px solid rgb(170,170,170);
+	background-color:rgba(0, 90, 140, 255);
+}
+
+#TrayNotifyDlg QLabel
+{
+	color:rgb(255,255,255);
+}
+
+#TrayNotifyDlg QLabel:hover
+{
+	color:rgb(255,255,151);
+}
+
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
+    <widget class="QLabel" name="lb_message">
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,116 @@
+*{
+    font-size:12px;
+    color:white;
+    font-family:"ËÎÌו";
+}
+QMainWindow,QDialog,QMenu
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+QMenu::item:selected
+{
+    background-color:rgba(0, 110, 180, 255);
+}
+
+QTreeWidget, QTableView, QPushButton, QToolButton, QLineEdit,QComboBox
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+
+QPushButton:hover, QToolButton:hover
+{
+    background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1,x3:0, y3:0,stop:0 rgba(0, 180, 250, 255),stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 180, 250, 255));
+}
+QToolButton:checked
+{
+    background-color:rgba(0, 110, 180, 255);
+}
+QToolButton[popupMode="0"]
+{ /* only for MenuButtonPopup */
+    padding-right: 10px; /* make way for the popup button */
+}
+QTreeWidget::item:hover,QTableView::item:hover
+{
+    selection-background-color: qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 #FF92BB, stop: 1 white);
+     background: qlineargradient(spread:reflect, x1:0, y1:, x2:0, y2:1, x3:0, y3:0,stop:0 rgba(0, 110, 170, 255),stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 110, 170, 255));
+}
+QTreeWidget::item:selected, QTableView::item:selected
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1,x3:0, y3:0,stop:0 rgba(0, 180, 250, 255),stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 180, 250, 255));
+    color:rgb(240,240,240);
+}
+QTreeWidget::branch:has-children:!has-siblings:closed,
+    QTreeWidget::branch:closed:has-children:has-siblings
+{
+    border-image: none;
+    image: url(:/images/triangle-right.png);
+ }
+
+ QTreeWidget::branch:open:has-children:!has-siblings,
+    QTreeWidget::branch:open:has-children:has-siblings
+{
+    border-image: none;
+    image: url(:/images/triangle-bottom.png);
+ }
+QTreeWidget::item::text
+{
+    font-weight:normal;
+    border:none;
+    color:rgb(240,240,240);
+}
+
+QWidget[objectName="UserItemWidget"], QWidget[objectName="transferFileWindow"]
+{
+    border-right:1px solid rgb(170,170,170);
+    background-color:rgba(0, 90, 140, 255);
+}
+QWidget[objectName="UserItemWidget"]:hover
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:1,stop:0 rgba(0, 90, 140, 255), stop:0.5 rgba(130, 200, 250, 255),stop:0.8 rgba(0, 180, 250, 255));
+}
+QLabel
+{
+    font-weight:normal;
+    border:none;
+    color:rgb(240,240,240);
+}
+
+QListWidget
+{
+    color:rgb(240,240,240);
+    background-color:rgba(0, 90, 140, 255);
+}
+#MessageWindow
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+#tedt_msgInputText,#tedt_msgOutputText
+{
+    font-size:12px;
+    color:rgb(0,0,0);
+    font-family:"ËÎÌו";
+}
+QToolTip
+{
+    border: 1px solid darkkhaki;
+    opacity: 60;
+    background-color:rgba(0, 90, 140, 255);
+}
+
+QHeaderView, QTableCornerButton
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+QHeaderView::section:checked, QTableCornerButton::section:checked
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+QHeaderView::section, QTableCornerButton::section
+{
+    background-color:rgba(0, 90, 140, 255);
+}
+
+QComboBox QAbstractItemView
+{
+     background-color:rgba(0, 90, 140, 255);
+ }

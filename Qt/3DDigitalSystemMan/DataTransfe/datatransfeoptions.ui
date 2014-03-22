@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DataTransfeOptions</class>
+ <widget class="QWidget" name="DataTransfeOptions">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>263</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>DataTransfeOptions</string>
+  </property>
+  <widget class="QWidget" name="layoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>60</y>
+     <width>221</width>
+     <height>177</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="1" column="0" alignment="Qt::AlignLeft">
+     <widget class="QLabel" name="label_2">
+      <property name="text">
+       <string>用户ID：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0" alignment="Qt::AlignLeft|Qt::AlignTop">
+     <widget class="QLabel" name="label_4">
+      <property name="text">
+       <string>备注：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0" alignment="Qt::AlignLeft">
+     <widget class="QLabel" name="label_3">
+      <property name="text">
+       <string>项目：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" alignment="Qt::AlignLeft">
+     <widget class="QTextEdit" name="tedt_Message"/>
+    </item>
+    <item row="0" column="0" alignment="Qt::AlignLeft">
+     <widget class="QLabel" name="label">
+      <property name="text">
+       <string>用户：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0" alignment="Qt::AlignRight">
+     <widget class="QLabel" name="label_5">
+      <property name="text">
+       <string>项目编号：</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="2">
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="ledt_Psw"/>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="ledt_User"/>
+    </item>
+    <item row="3" column="1">
+     <widget class="QLineEdit" name="ledt_ProjectId"/>
+    </item>
+    <item row="2" column="1">
+     <widget class="QComboBox" name="cbox_Project">
+      <item>
+       <property name="text">
+        <string>项目0</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>项目1</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>项目2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>项目3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>项目4</string>
+       </property>
+      </item>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QPushButton" name="pbtn_Commit">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>250</y>
+     <width>221</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>提交</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pbtn_addFiles">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>20</y>
+     <width>221</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>添加文件...</string>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>0</y>
+     <width>241</width>
+     <height>351</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>设置</string>
+   </property>
+  </widget>
+  <zorder>groupBox</zorder>
+  <zorder>layoutWidget</zorder>
+  <zorder>pbtn_Commit</zorder>
+  <zorder>pbtn_addFiles</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

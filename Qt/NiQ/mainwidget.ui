@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>230</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>220</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWidget</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QWidget#MainWidget
+{
+	background-color: rgb(44, 89, 134);
+}</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_3">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <property name="spacing">
+    <number>6</number>
+   </property>
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0" rowspan="3">
+      <widget class="QLabel" name="lb_avatar">
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="maximumSize">
+        <size>
+         <width>60</width>
+         <height>65</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>My avatar</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: rgb(58, 117, 176);
+color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="res.qrc">:/images/buddy-blue.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="2">
+      <widget class="QLabel" name="lb_name">
+       <property name="minimumSize">
+        <size>
+         <width>150</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="toolTip">
+        <string>My name</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);
+font: 75 12pt &quot;仿宋&quot;;
+</string>
+       </property>
+       <property name="text">
+        <string>Name</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2" colspan="2">
+      <widget class="QLabel" name="lb_officeTitle">
+       <property name="toolTip">
+        <string>My group in</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>Office Title</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="2">
+      <widget class="QLabel" name="lb_ip">
+       <property name="toolTip">
+        <string>My ip address</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">color: rgb(255, 255, 255);</string>
+       </property>
+       <property name="text">
+        <string>00.00.00.00:port</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="3">
+      <widget class="QLabel" name="lb_tmp">
+       <property name="text">
+        <string/>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="3">
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLineEdit" name="ledt_search">
+     <property name="toolTip">
+      <string>Search my friend</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(58, 117, 176);
+color: rgb(255, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>Search...</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>1</number>
+     </property>
+     <widget class="QWidget" name="page">
+      <property name="styleSheet">
+       <string notr="true">QWidget#page
+{
+	background-color:rgba(0, 90, 140, 255);
+}</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout">
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="FriendsTableWnd" name="friendsTable">
+         <property name="styleSheet">
+          <string notr="true">#friendsTable::item
+{
+	background-color:rgba(0, 90, 140, 255);
+}
+#friendsTable::item:hover
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:, x2:0, y2:1, x3:0, y3:,stop:0 rgba(0, 110, 170, 255), stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 110, 170, 255));
+}
+#friendsTable::item:selected
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:0,stop:0 rgba(0, 180, 250, 255), stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 180, 250, 255));
+
+}</string>
+         </property>
+         <property name="frameShape">
+          <enum>QFrame::StyledPanel</enum>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Sunken</enum>
+         </property>
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
+         <property name="selectionMode">
+          <enum>QAbstractItemView::SingleSelection</enum>
+         </property>
+         <property name="showGrid">
+          <bool>false</bool>
+         </property>
+         <property name="gridStyle">
+          <enum>Qt::NoPen</enum>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="horizontalHeaderDefaultSectionSize">
+          <number>200</number>
+         </attribute>
+         <attribute name="horizontalHeaderStretchLastSection">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
+         <attribute name="verticalHeaderDefaultSectionSize">
+          <number>90</number>
+         </attribute>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_1">
+      <layout class="QGridLayout" name="gridLayout_4">
+       <property name="margin">
+        <number>0</number>
+       </property>
+       <item row="0" column="0">
+        <widget class="FriendsTree" name="friendsTree">
+         <property name="styleSheet">
+          <string notr="true">#friendsTree
+{
+	background-color: rgba(0, 90, 140, 255);
+}
+
+#friendsTree::item
+{
+	background-color:rgba(0, 90, 140, 255);
+}
+#friendsTree::item:hover
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:, x2:0, y2:1, x3:0, y3:,stop:0 rgba(0, 110, 170, 255), stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 110, 170, 255));
+}
+#friendsTree::item:selected
+{
+     background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:0,stop:0 rgba(0, 180, 250, 255), stop:0.5 rgba(0, 90, 140, 255),stop:1 rgba(0, 180, 250, 255));
+
+}
+
+QTreeView::branch:has-children:!has-siblings:closed,
+ QTreeView::branch:closed:has-children:has-siblings 
+{
+	border-image: none;
+	image: url(:/images/triangle-right.png);
+ }
+
+ QTreeView::branch:open:has-children:!has-siblings,
+ QTreeView::branch:open:has-children:has-siblings 
+{
+	border-image: none;
+	image: url(:/images/triangle-bottom.png);
+ }
+#QTreeView::item::text
+{
+	font-size:11px;
+	font-weight:normal;
+	border:none;
+	color:rgb(240,240,240);
+}
+#QTreeView QLabel::item:hover
+{
+	color:rgb(255,255,151);
+
+}</string>
+         </property>
+         <property name="iconSize">
+          <size>
+           <width>24</width>
+           <height>24</height>
+          </size>
+         </property>
+         <property name="animated">
+          <bool>true</bool>
+         </property>
+         <property name="headerHidden">
+          <bool>true</bool>
+         </property>
+         <column>
+          <property name="text">
+           <string notr="true">1</string>
+          </property>
+         </column>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>FriendsTableWnd</class>
+   <extends>QTableWidget</extends>
+   <header>friendstablewnd.h</header>
+  </customwidget>
+  <customwidget>
+   <class>FriendsTree</class>
+   <extends>QTreeWidget</extends>
+   <header>friendstree.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
+ <connections/>
+</ui>

@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SendFileDlg</class>
+ <widget class="QDialog" name="SendFileDlg">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>582</width>
+    <height>423</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+#SendFileDlg
+{
+	border-right:1px solid rgb(170,170,170);
+	background-color:rgba(0, 90, 140, 255);
+}
+#SendFileDlg QPushButton
+{
+	font-size:12px;
+	font-weight:normal;
+	color:rgb(240,240,240);
+	border:0px groove rgba(0, 90, 140, 255);
+	border-radius:8px;
+	padding:4px 12px;
+	background-color: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(0, 180, 250, 255), stop:1 rgba(0, 90, 140, 255));
+}
+#SendFileDlg QPushButton:pressed
+{
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1, stop:0 rgba(130, 200, 250, 255), stop:1 rgba(130, 200, 250, 255));
+	background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:1,stop:0 rgba(0, 90, 140, 255), stop:0.5 rgba(130, 200, 250, 255),stop:0.8 rgba(0, 180, 250, 255));
+	color:rgb(0,0,0);
+}
+#SendFileDlg QPushButton:hover
+{
+	background: qlineargradient(spread:reflect, x1:0, y1:0, x2:0, y2:1, x3:0, y3:1,stop:0 rgba(0, 90, 140, 255), stop:0.5 rgba(130, 200, 250, 255),stop:0.8 rgba(0, 180, 250, 255));
+}
+</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>9</number>
+   </property>
+   <item row="0" column="0">
+    <widget class="QSplitter" name="splitter">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>380</height>
+      </size>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="FileTransfer" name="filesWidget"/>
+     <widget class="QTreeWidget" name="usersWidget">
+      <column>
+       <property name="text">
+        <string>用户</string>
+       </property>
+      </column>
+     </widget>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>12</number>
+     </property>
+     <property name="leftMargin">
+      <number>9</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="btn_groupOpenFile">
+       <property name="text">
+        <string>Open...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_groupSendFile">
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Send</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btn_groupStopSend">
+       <property name="minimumSize">
+        <size>
+         <width>70</width>
+         <height>0</height>
+        </size>
+       </property>
+       <property name="text">
+        <string>Stop</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>FileTransfer</class>
+   <extends>QTreeWidget</extends>
+   <header>filetransfer.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/icon">
+        <file>icon/job-history.png</file>
+        <file>icon/job-in-storage.png</file>
+        <file>icon/job-reciever.png</file>
+        <file>icon/job-sender.png</file>
+        <file>icon/job-status.png</file>
+        <file>icon/other-actions.png</file>
+        <file>icon/person-manager.png</file>
+        <file>icon/setting.png</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file>images/buddy-blue.png</file>
+        <file>images/buddy-green.png</file>
+        <file>images/wlm-alt.png</file>
+    </qresource>
+</RCC>

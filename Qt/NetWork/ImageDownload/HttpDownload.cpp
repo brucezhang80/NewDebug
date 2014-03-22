@@ -1,0 +1,206 @@
+#include "HttpDownload.h"
+#include "ParseHtml.h"
+
+#include <QTimer>
+#include <QByteArray>
+#include <QThread>
+#include <QEventLoop>
+#include <QNetworkReply>
+#include <QTcpSocket>
+#include <QNetworkAccessManager>
+#include <QPixmap>
+#include <QDateTime>
+#include <QDir>
+#include <QBuffer>
+
+#include <QDebug>
+
+HttpDownload::HttpDownload(QObject *parent) :
+    QObject(parent),
+    m_parseHtml(new ParseHtml),
+    m_downloadManager(new QNetworkAccessManager),
+    m_completedImgCount(0),
+    m_completedHtmlCount(0),
+    m_totalCount(0)
+{
+<<<<<<< .mine
+    m_downloadManager->setNetworkAccessible(QNetworkAccessManager::Accessible);
+=======
+    connect(m_parseHtml, SIGNAL(updateUrl(QStringList)),
+                this, SLOT(append(QStringList)));
+
+>>>>>>> .r170
+    connect(m_parseHtml, SIGNAL(htmlCount(int)),
+                this, SIGNAL(htmlCount(int)));
+    connect(m_parseHtml, SIGNAL(outputLog(QString)),
+                this, SIGNAL(outputLog(QString)));
+}
+
+HttpDownload::~HttpDownload()
+{
+
+}
+
+void HttpDownload::append(const QUrl &url)
+{
+    if (m_downloadQueue.isEmpty())
+        QTimer::singleShot(2000, this, SLOT(startNextDownload()));
+
+    m_downloadQueue.enqueue(url);
+    ++m_totalCount;
+    emit imgCount(m_totalCount);
+}
+
+void HttpDownload::append(const QStringList &urlList)
+{
+    foreach (QString url, urlList)
+            append(QUrl::fromEncoded(url.toLocal8Bit()));
+
+    // all done
+    if (m_downloadQueue.isEmpty())
+            QTimer::singleShot(0, this, SIGNAL(finished()));
+}
+
+void HttpDownload::download(QUrl url)
+{
+    m_parseHtml->append(url);
+    m_parseHtml->startNextParse();
+}
+
+// 阻塞方式获取下载文件大小
+qint64 HttpDownload::fileSize(QUrl url)
+{
+    QNetworkAccessManager manager;
+    QEventLoop loop;
+    //发出请求，获取目标地址的头部信息
+    QNetworkReply *reply = manager.head(QNetworkRequest(url));
+    QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()), Qt::DirectConnection);
+    loop.exec();
+    QVariant var = reply->header(QNetworkRequest::ContentLengthHeader);
+    reply->deleteLater();
+    qint64 size = var.toLongLong();
+    qDebug() << "The file size is: " << size;
+    return size;
+}
+
+QString HttpDownload::localFilename(const QUrl &url)
+{
+    QString path = url.path();
+    QString relativepath = path.remove("http://www.6188.com/");
+    QString downloadFilename = QDir::currentPath() + relativepath;
+    QDir downloadDir = QFileInfo(downloadFilename).absoluteDir();
+    if( !downloadDir.exists() )
+        downloadDir.mkpath(downloadDir.path());
+
+    //qDebug() << downloadFilename << downloadDir;
+
+    QString filename = downloadDir.path() + QDir::separator()
+                                    + QFileInfo(path).fileName();
+    QString basename = downloadDir.path() + QDir::separator() \
+                                    + QFileInfo(path).baseName();
+    QString subffix = QFileInfo(path).completeSuffix(); // 后缀
+
+    //qDebug() << filename << basename << subffix;
+
+    if (filename.isEmpty())
+            filename = "download";
+
+    if (QFile::exists(filename))
+    {
+        // 已经存在，不覆盖,在文件名后面添加为序号
+        int i = 1;
+        while ( QFile::exists(basename + \
+                              "(" + QString::number(i) + ")." + subffix) )
+            ++i;
+        basename += "(" + QString::number(i) + ")." + subffix;
+    }
+    else
+        basename += "." + subffix;
+
+    return basename;
+}
+
+void HttpDownload::startNextDownload()
+{
+    if (m_downloadQueue.isEmpty())
+    {
+        QString out = QString("%1/%2 files downloaded successfully.") \
+                    .arg(m_completedImgCount).arg(m_totalCount);
+        qDebug() << out;
+        ++m_completedHtmlCount;
+
+        emit outputLog(out);
+        return;
+    }
+    QUrl url = m_downloadQueue.dequeue();
+    QString filename = localFilename(url);
+    m_file.setFileName(filename);
+    if (!m_file.open(QIODevice::WriteOnly))
+    {
+        QString out = QString("Problem opening save file '%1' for download '%2': %3")
+                        .arg(filename)
+                        .arg(url.toEncoded().constData())
+                        .arg(m_file.errorString());
+        qDebug() << out;
+
+        emit outputLog(out);
+        startNextDownload();
+        return;  // 跳过这个文件的下载
+    }
+
+    QNetworkRequest request;
+    request.setUrl(url);
+    // multipart/form-data
+    request.setHeader(QNetworkRequest::ContentTypeHeader, "application/x-www-form-urlencoded");
+    m_curDownloading = m_downloadManager->get(request);
+    // 下载完成后
+    connect(m_curDownloading, SIGNAL(finished()), this, SLOT(downloadFinished()));
+    connect(m_curDownloading, SIGNAL(readyRead()), this, SLOT(downloadReadyRead()));
+    //更新进度条
+    connect(m_curDownloading, SIGNAL(downloadProgress(qint64, qint64)),
+                this, SLOT(updateReadProgress(qint64, qint64)));
+
+    QString out = QString("Downloading %1.......%1")
+                        .arg( url.toEncoded().constData() )
+                        .arg(fileSize(url));
+    qDebug() << out;
+
+    emit outputLog(out);
+}
+
+void HttpDownload::downloadFinished()
+{
+    m_file.close();
+    if (m_curDownloading->error())
+    {
+        // download failed
+        QString out = QString("Failed: %1").arg(m_curDownloading->errorString());
+        qDebug() << out;
+
+        emit outputLog(out);
+    }
+    else
+    {
+        QString out = QString("OK.");
+        qDebug() << out;
+        emit outputLog(out);
+        ++m_completedImgCount;
+    }
+
+    qDebug() << m_curDownloading->rawHeader("Content-Length");
+    m_curDownloading->deleteLater();
+    startNextDownload();
+}
+
+void HttpDownload::downloadReadyRead()
+{
+    if(m_curDownloading->error() == QNetworkReply::NoError)
+    {
+        m_file.write(m_curDownloading->readAll());
+    }
+}
+
+void HttpDownload::updateReadProgress(qint64 completedBytes, qint64 totalBytes)
+{
+    emit updateDownloadProgressbar(completedBytes, totalBytes);
+}
