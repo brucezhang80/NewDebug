@@ -1,0 +1,127 @@
+#include "MainWindow.h"
+#include "ui_MainWindow.h"
+#include "HttpDownload.h"
+#include "ParseHtml.h"
+
+#include <QMovie>
+//#include <QThread>
+
+QString formatSize(qint64 size)
+{
+    QString str = QString("%1 B").arg(size);
+    int base = 1024;
+    qint64 mult = 1;
+    for (int i = 0; i < 4; i++)
+    {
+        qint64 div = size / mult;
+        if (div < base)
+        {
+            double val = (double)size / mult;
+            switch (i)
+            {
+                case 1: str = QString("%1Kb").arg(val, 0, 'f', 1); break;
+                case 2: str = QString("%1Mb").arg(val, 0, 'f', 1); break;
+                case 3: str = QString("%1Gb").arg(val, 0, 'f', 1); break;
+                default: break;
+            }
+            break;
+        }
+        mult *= base;
+    }
+    return str;
+}
+
+MainWindow::MainWindow(QWidget *parent) :
+    QMainWindow(parent),
+    ui(new Ui::MainWindow),
+    m_parseHtml(new ParseHtml),
+    m_httpDownload(new HttpDownload())
+{
+    ui->setupUi(this);
+    ui->progressBar->setValue(0);
+
+//    QThread* thread = new QThread;
+//    m_httpDownload->moveToThread(thread);
+//    thread->start();
+
+    connect(ui->downloadBtn, SIGNAL(clicked()),
+            this, SLOT(startDownload()));
+
+    connect(m_httpDownload, SIGNAL(updateDownloadProgressbar(qint64, qint64)),
+            this, SLOT(updateProgressbar(qint64, qint64)));
+    connect(m_httpDownload, SIGNAL(showImage(QString)),
+            this, SLOT(showImage(QString)));
+    connect(m_httpDownload, SIGNAL(updateLog(QString)),
+            this, SLOT(appendLog(QString)));
+
+    connect(m_parseHtml, SIGNAL(updateLog(QStringList)),
+                this, SLOT(appendLog(QStringList)));
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+}
+
+void MainWindow::showImage(const QString &filename)
+{
+    QMovie *move = new QMovie(filename);
+    ui->viewLabel->setMovie(move);
+    ui->viewLabel->movie()->setScaledSize(QSize(480, 320));
+    move->start();
+}
+
+void MainWindow::updateProgressbar(qint64 completedBytes, qint64 totalBytes)
+{
+    ui->progressBar->setMaximum(totalBytes);    //最大值
+    ui->progressBar->setValue(completedBytes);  //当前值
+
+    // calculate the download speed
+    double speed = completedBytes * 1000.0 / m_downloadTime.elapsed();
+    QString unit;
+    if (speed < 1024)
+    {
+        unit = "bytes/sec";
+    }
+    else if (speed < 1024*1024)
+    {
+        speed /= 1024;
+        unit = "KB/s";
+    }
+    else
+    {
+        speed /= 1024*1024;
+        unit = "MB/s";
+    }
+
+    ui->speedLabel->setText(QString::fromLatin1("%1 %2")
+                           .arg(speed, 3, 'f', 1).arg(unit) );
+
+    QString lessByte = QString("%1/%2")
+            .arg(formatSize(completedBytes))
+            .arg(formatSize(totalBytes));
+    ui->sizeLabel->setText(lessByte);
+}
+
+void MainWindow::startDownload()
+{
+//    m_downloadTime.start();
+    const QString url = ui->urlEdt->text();
+//    m_httpDownload->append( QUrl(url) );
+//    m_httpDownload->download();
+
+    m_parseHtml->append(QUrl(url));
+}
+
+void MainWindow::appendLog(const QString &log)
+{
+    ui->logEdt->append(log);
+}
+
+void MainWindow::appendLog(const QStringList &logs)
+{
+    foreach (QString log, logs)
+    {
+        ui->logEdt->append(log);
+    }
+}

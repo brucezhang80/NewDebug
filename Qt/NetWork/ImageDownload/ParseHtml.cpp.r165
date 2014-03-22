@@ -1,0 +1,88 @@
+#include "ParseHtml.h"
+
+#include <QNetworkReply>
+#include <QNetworkAccessManager>
+#include <QTimer>
+#include <QStringList>
+#include <QRegExp>
+
+#include <QDebug>
+
+ParseHtml::ParseHtml(QObject *parent) :
+    QObject(parent),
+    m_pParseManager(new QNetworkAccessManager)
+{
+//    connect(m_pParseManager, SIGNAL(finished(QNetworkReply*)),
+//            this, SLOT(parseFinished(QNetworkReply*)));
+}
+
+void ParseHtml::startNextParse()
+{
+    if (m_htmlQueue.isEmpty())
+    {
+        emit finished();
+        return;
+    }
+
+    QUrl html = m_htmlQueue.dequeue();
+    QNetworkRequest request(html);
+    m_pCurParse = m_pParseManager->get(request);
+    connect(m_pCurParse, SIGNAL(finished()), this, SLOT(parseFinished()));
+//    connect(m_pCurParse, SIGNAL(readyRead()), this, SLOT(downloadReadyRead()));
+}
+
+void ParseHtml::parseFinished(QNetworkReply *reply)
+{
+    if(reply->error() == QNetworkReply::NoError)
+    {
+        QByteArray data = reply->readAll();
+        QStringList urls = parseUrl(data);
+        emit updateLog(urls);
+    }
+}
+
+void ParseHtml::parseFinished()
+{
+    if(m_pCurParse->error() == QNetworkReply::NoError)
+    {
+        QByteArray data = m_pCurParse->readAll();
+//        qDebug() << data;
+        QStringList urls = parseUrl(data);
+        emit updateLog(urls);
+    }
+}
+
+void ParseHtml::append(const QUrl &url)
+{
+    if (m_htmlQueue.isEmpty())
+        QTimer::singleShot(0, this, SLOT(startNextParse()));
+
+    m_htmlQueue.enqueue(url);
+    ++m_totalCount;
+}
+
+void ParseHtml::append(const QStringList &urlList)
+{
+    foreach (QString html, urlList)
+        append(QUrl::fromEncoded(html.toLocal8Bit()));
+
+    if (m_htmlQueue.isEmpty())
+        QTimer::singleShot(0, this, SIGNAL(finished()));
+}
+
+QStringList ParseHtml::parseUrl(const QByteArray &html)
+{
+    QString str = QString(html);
+    QString exp = "http://www.deskcity.org/([^(|)\"' ]*.html)";
+    QRegExp rx(exp, Qt::CaseInsensitive);
+    QStringList list;
+    int pos = 0;
+    while ((pos = rx.indexIn(str, pos)) != -1)
+    {
+        list << rx.cap(0);
+        qDebug() << rx.cap(0) << rx.cap(1);
+        pos += rx.matchedLength();
+    }
+
+    return list;
+}

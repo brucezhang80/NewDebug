@@ -1,0 +1,194 @@
+
+import QtQuick 1.1
+/*
+Rectangle
+{
+    id: dndRect
+    width: 840; height: 600
+    color: "black"
+
+    ListModel
+    {
+        id: dndModel
+        ListElement {title:"1.png"; picName: "pics/1.png" }
+        ListElement {title:"2.png"; picName: "pics/2.png" }
+        ListElement {title:"3.png"; picName: "pics/3.png" }
+        ListElement {title:"4.png"; picName: "pics/4.png" }
+        ListElement {title:"5.png"; picName: "pics/7.png" }
+        ListElement {title:"6.png"; picName: "pics/8.jpg" }
+        ListElement {title:"7.png"; picName: "pics/9.jpg" }
+        ListElement {title:"8.png"; picName: "pics/10.jpg"}
+        ListElement {title:"9.png"; picName: "pics/5.png" }
+        ListElement {title:"10.png"; picName: "pics/6.png" }
+    }
+
+    Component
+    {
+        id: dndDelegate
+        Item
+        {
+            id: dndItem
+            width: dndGrid.cellWidth-20; height: dndGrid.cellHeight-20
+            Image
+            {
+                id: dndImage
+                width: dndItem.width-10; height: dndItem.height-10
+                source: picName;
+                anchors.horizontalCenter: parent.horizontalCenter; anchors.verticalCenter: parent.verticalCenter
+            }
+            Text
+            {
+                anchors { top: parent.bottom; horizontalCenter: parent.horizontalCenter }
+                text: title
+                color:"#fafafa"
+            }
+
+            MouseArea
+            {
+                hoverEnabled: true
+                anchors.fill: parent
+                onClicked:
+                {
+                    dndGrid.currentIndex = index
+                }
+            }
+        }
+    }
+
+    Component
+    {
+        id: itemHighlight
+        Rectangle
+        {
+            id: wrapper
+            width: dndGrid.cellWidth
+            height: dndGrid.cellHeight
+            color: GridView.isCurrentItem ? "lightsteelblue" : "#48d93e"
+            radius: 5
+            x: dndGrid.currentItem.x
+            y: dndGrid.currentItem.y
+            Behavior on x { SpringAnimation { spring: 3; damping: 0.2 } }
+            Behavior on y { SpringAnimation { spring: 3; damping: 0.2 } }
+        }
+    }
+
+    GridView
+    {
+        id: dndGrid
+        anchors.fill: parent
+        cellWidth: 100;
+        cellHeight: 100;
+        anchors.margins: 10
+        width: parent.width; height: parent.height
+        highlight: itemHighlight
+        currentIndex: 0
+        focus: true
+        Component.onCompleted: positionViewAtIndex(count-1, GridView.Beginning)
+
+        model: dndModel
+        delegate:dndDelegate
+    }
+}
+
+*/
+
+Rectangle
+{
+    id: mainRect
+    width: 200
+    height:600
+
+    GridView
+    {
+        id: mainGrid
+//        anchors.fill: parent
+        width: parent.width;height: 400
+        cellWidth: parent.width; cellHeight: 80;//parent.height/5
+        model: myModel
+        delegate: myButton
+
+        property int mx:0
+        property int my:0
+
+        ListModel
+        {
+            id: myModel
+            function createModel() {
+                for (var i=1; i<=5; i++) {
+                    myModel.append({"display": i})
+                }
+            }
+            Component.onCompleted: {createModel()}
+        }
+
+        Component {
+            id: myButton
+            Rectangle {
+                id: item
+                z: 1
+                width: mainGrid.cellWidth-5; height: mainGrid.cellHeight-5;
+                border.width: 1
+                Text {
+                    anchors.centerIn: parent
+                    text: display
+                    font.pixelSize: 48
+                }
+            }
+        }
+
+        MouseArea {
+            id: gridArea
+            anchors.fill: mainGrid
+            hoverEnabled: true
+            drag.axis: Drag.XandYAxis
+            property int mX: (mouseX < 0) ? 0 : ((mouseX < mainGrid.width - mainGrid.cellWidth) ? mouseX : mainGrid.width - mainGrid.cellWidth)
+            property int mY: (mouseY < 0) ? 0 : ((mouseY < mainGrid.height - mainGrid.cellHeight) ? mouseY : mainGrid.height - mainGrid.cellHeight)
+            property int index: parseInt(mX/mainGrid.cellWidth) + parseInt(mY/mainGrid.cellHeight)  //item underneath cursor
+            property int activeIndex:-1
+            property bool isDrag: false
+
+            onPressed:
+            {
+                isDrag = false;
+                if( index != -1 && index != 0)
+                {
+                    mainGrid.currentIndex = index
+                    mainGrid.currentItem.z = 10
+                    gridArea.drag.target = mainGrid.currentItem
+                    activeIndex = index
+                }
+            }
+            onReleased:
+            {
+                console.debug(index);
+                if( isDrag == true )
+                {
+                    mainGrid.currentItem.x = 0;//mainGrid.cellWidth * (index % myModel.count)
+                    mainGrid.currentItem.y = (mainGrid.currentIndex)*mainGrid.cellHeight;//mainGrid.cellHeight * parseInt(index / myModel.count)
+                    mainGrid.currentItem.z = 1
+                    mainGrid.currentIndex = -1
+                    gridArea.drag.target = null
+                    isDrag = false;
+                }
+                else
+                {
+                    mainGrid.currentItem.x = 0
+                    mainGrid.currentItem.y = ((index)*mainGrid.cellHeight)// * parseInt(index+1 / myModel.count)
+
+                    mainGrid.currentItem.z = 1
+                    mainGrid.currentIndex = -1
+                    gridArea.drag.target = null
+                }
+            }
+            onPositionChanged:
+            {
+                if( index != 0 )
+                if (drag.active && index !== -1 && index !== activeIndex)
+                {
+                    isDrag = true;
+                    myModel.move(activeIndex, activeIndex = index, 1);
+                }
+            }
+        }
+    }
+}
