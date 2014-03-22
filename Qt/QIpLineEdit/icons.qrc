@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/" >
+        <file>network_ip.png</file>
+
+    </qresource>
+</RCC>

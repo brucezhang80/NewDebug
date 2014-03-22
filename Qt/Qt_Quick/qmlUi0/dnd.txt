@@ -1,0 +1,65 @@
+import QtQuick 1.1
+
+GridView {
+    id: mainGrid
+    cellWidth: 165; cellHeight: 95
+    width: 5*cellWidth; height: 4*cellHeight
+    model: myModel
+    delegate: myButton
+
+    ListModel {
+        id: myModel
+        function createModel() {
+            for (var i=1; i<=20; i++) {
+                myModel.append({"display": i})
+            }
+        }
+        Component.onCompleted: {createModel()}
+    }
+
+    Component {
+        id: myButton
+        Rectangle {
+            id: item
+            z: 1
+            width: mainGrid.cellWidth-5; height: mainGrid.cellHeight-5;
+            border.width: 1
+            Text {
+                anchors.centerIn: parent
+                text: display
+                font.pixelSize: 48
+            }
+        }
+    }
+
+    MouseArea {
+        id: gridArea
+        anchors.fill: parent
+        hoverEnabled: true
+        drag.axis: Drag.XandYAxis
+        //property int index: mainGrid.indexAt(mouseX,mouseY) //NOT WORKING RELIABLE!
+        property int mX: (mouseX < 0) ? 0 : ((mouseX < mainGrid.width - mainGrid.cellWidth) ? mouseX : mainGrid.width - mainGrid.cellWidth)
+        property int mY: (mouseY < 0) ? 0 : ((mouseY < mainGrid.height - mainGrid.cellHeight) ? mouseY : mainGrid.height - mainGrid.cellHeight)
+        property int index: parseInt(mX/mainGrid.cellWidth) + 5*parseInt(mY/mainGrid.cellHeight)  //item underneath cursor
+        property int activeIndex
+
+        onPressAndHold: {
+            currentIndex = index
+            currentItem.z = 10
+            gridArea.drag.target = currentItem
+            activeIndex = index
+        }
+        onReleased: {
+            currentItem.x = mainGrid.cellWidth * (index % 5)
+            currentItem.y = mainGrid.cellHeight * parseInt(index / 5)
+            currentItem.z = 1
+            currentIndex = -1
+            gridArea.drag.target = null
+        }
+        onPositionChanged: {
+            if (drag.active && index !== -1 && index !== activeIndex) {
+                mainGrid.model.move(activeIndex, activeIndex = index, 1)
+            }
+        }
+    }
+}
