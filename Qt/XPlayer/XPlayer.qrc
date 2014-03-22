@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/Arrow-right.png</file>
+        <file>images/Button-close.png</file>
+        <file>images/Button-max.png</file>
+        <file>images/Button-min.png</file>
+        <file>images/Button-next.png</file>
+        <file>images/Button-play.png</file>
+        <file>images/Button-prev.png</file>
+        <file>images/Button-search.png</file>
+        <file>images/Button-setting.png</file>
+        <file>images/Cover.jpg</file>
+        <file>style.qss</file>
+        <file>images/Arrow-left.png</file>
+    </qresource>
+</RCC>

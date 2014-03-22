@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="GB18030"?>
+<!--地址中出现 "&"的，需要使用 "&amp;"来代替-->
+<MusicAPI>
+	<Entry id="0" name="QQ音乐" value="http://shopcgi.qqmusic.qq.com/fcgi-bin/shopsearch.fcg?value={0}"></Entry>
+	<Entry id="1" name="百度音乐" value="http://mp3.baidu.com/dev/api/?tn=getinfo&amp;ct=0&amp;ie=utf-8&amp;word={0}&amp;format=json"></Entry>
+	<Entry id="2" name="酷狗音乐" value="http://cloud.kugou.com/app/getSearchResult.php?key={0}"></Entry>
+	<Entry id="3" name="多米音乐" value="http://v5.pc.duomi.com/search-ajaxsearch-searchall?kw={0}"></Entry>
+</MusicAPI>

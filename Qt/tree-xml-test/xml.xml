@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<root>
+	<entry term="Group1">
+		<file>filename|filepath2-1|filesize|date|version</file>
+		<file>filename|filepath2-1|filesize|date|version</file>
+		<file>filename|filepath2-1|filesize|date|version</file>
+	</entry>
+	<entry term="Group2">
+		<file>filename|filepath2-1|filesize|date|version</file>
+		<entry term="sub Group1">
+			<file>filename|filepath2-1|filesize|date|version</file>
+			<file>filename|filepath2-1|filesize|date|version</file>
+		</entry>
+		<entry term="sub Group 2">
+            <file>filename|filepath2-1|filesize|date|version</file>
+		</entry>
+    </entry>
+</root>

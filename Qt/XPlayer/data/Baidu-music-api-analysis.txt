@@ -1,0 +1,104 @@
+﻿1、通过关键词，获取列表。
+http://mp3.baidu.com/dev/api/?tn=getinfo&ct=0&ie=utf-8&word=<word>&format=<format>
+参数：
+    word: "歌曲名", //歌曲名 encodeURI
+
+    format: "json", //返回数据格式，xml | json，默认xml
+
+    callback: "Pub.music.searchResult", //固定值，返回jsonp格式
+
+
+如 xml格式：
+http://mp3.baidu.com/dev/api/?tn=getinfo&ct=0&word=%E6%B5%81%E6%B5%AA%E8%AE%B0&ie=utf-8&format=xml
+返回：
+
+<res>
+<song><![CDATA[流浪记]]></song>
+<song_id><![CDATA[38233821]]></song_id>
+<singer><![CDATA[杨宗纬]]></singer>
+<album><![CDATA[我是歌手 第十一期]]></album>
+<singerPicLarge><![CDATA[http://qukufile2.qianqian.com/data2/pic/36218335/36218335.jpg]]></singerPicLarge>
+<singerPicSmall><![CDATA[http://qukufile2.qianqian.com/data2/pic/36218344/36218344.jpg]]></singerPicSmall>
+<albumPicLarge><![CDATA[]]></albumPicLarge>
+<albumPicSmall><![CDATA[]]></albumPicSmall>
+</res>
+
+<res>
+<song><![CDATA[Sunshine Girl]]></song>	//歌曲名
+<song_id><![CDATA[692845]]></song_id>	//歌曲ID
+<singer><![CDATA[Moumoon]]></singer>	//歌手名
+<album><![CDATA[Sunshine Girl]]></album>//专辑名
+<singerPicLarge><![CDATA[http://qukufile2.qianqian.com/data2/pic/86580822/86580822.jpg]]></singerPicLarge>//歌手照片(大)
+<singerPicSmall><![CDATA[http://qukufile2.qianqian.com/data2/pic/106113874/106113874.jpg]]></singerPicSmall>//歌手照片(小)
+<albumPicLarge><![CDATA[http://qukufile2.qianqian.com/data2/pic/88512530/88512530.jpg]]></albumPicLarge>//专辑大封面
+<albumPicSmall><![CDATA[http://qukufile2.qianqian.com/data2/pic/88512547/88512547.jpg]]></albumPicSmall>//专辑小封面
+</res>
+
+
+下载：
+2、通过歌曲id (song_id) 获取歌曲下载地址：
+http://ting.baidu.com/data/music/links?songIds=<songIds>
+GET 方式获取：
+参数：
+    songIds: "38233821" //歌曲id，从第1个列表中得到的歌曲id  
+
+    callback: "callback" //不为空时，返回jsonp格式数据
+	
+	返回一个json数据
+	
+mp3下载地址为 songLink，后面加xcode参数，xcode每秒自动更新一次。
+
+Json:
+[
+	{
+		"song":"Sunshine Girl",
+		"song_id":"692845",
+		"singer":"Moumoon",
+		"album":"SunshineGirl",
+		"singerPicSmall":"http:\/\/qukufile2.qianqian.com\/data2\/pic\/106113874\/106113874.jpg",
+		"singerPicLarge":"http:\/\/qukufile2.qianqian.com\/data2\/pic\/86580822\/86580822.jpg",
+		"albumPicLarge":"http:\/\/qukufile2.qianqian.com\/data2\/pic\/88512530\/88512530.jpg",
+		"albumPicSmall":"http:\/\/qukufile2.qianqian.com\/data2\/pic\/88512547\/88512547.jpg"
+	},
+	{...},
+	...
+]
+
+////////////
+{
+	"errorCode":22000,
+	"data":
+	{
+		"xcode":"985cde45387da19a1d07286be822d843",
+		"songList":
+		[
+			{
+				"queryId":"692845",
+				"songId":692845,
+				"songName":"Sunshine Girl",
+				"artistId":"2175",
+				"artistName":"Moumoon",
+				"albumId":157115,
+				"albumName":"Sunshine Girl",
+				"songPicSmall":"http:\/\/b.hiphotos.baidu.com\/ting\/pic\/item\/7c1ed21b0ef41bd541cc3ad553da81cb39db3d70.jpg",
+				"songPicBig":"http:\/\/b.hiphotos.baidu.com\/ting\/pic\/item\/77c6a7efce1b9d1658394840f1deb48f8c546411.jpg",
+				"songPicRadio":"http:\/\/c.hiphotos.baidu.com\/ting\/pic\/item\/8435e5dde71190efd70540fecc1b9d16fdfa6011.jpg",
+				"lrcLink":"\/data2\/lrc\/23506822\/23506822.lrc",
+				"version":"",
+				"copyType":1,
+				"time":232,
+				"linkCode":22000,
+				"songLink":"http:\/\/file.qianqian.com\/data2\/music\/39483943\/39483943.mp3?xcode=985cde45387da19a17e8690d0ed0675ca818fbbf3681bccf\u0026src=\u0022http%3A%2F%2Fpan.baidu.com%2Fshare%2Flink%3Fshareid%3D414822%26uk%3D154480715\u0022",
+				"showLink":"http:\/\/pan.baidu.com\/share\/link?shareid=414822\u0026uk=154480715",
+				"format":"mp3",
+				"rate":128,
+				"size":3742943,
+				"relateStatus":"0",
+				"resourceType":"2"
+			}
+		]
+	}
+}
+
+
+	
