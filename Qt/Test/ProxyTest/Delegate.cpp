@@ -20,7 +20,9 @@ void Delegate::setValue(int value)
 
 void Delegate::start()
 {
+#ifdef QT_DEBUG
     qDebug() << "Delegate starting...";
+#endif
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
     m_timer->start(100);
@@ -30,7 +32,9 @@ void Delegate::update()
 {
     if( m_value == 100)
     {
+#ifdef QT_DEBUG
         qDebug() << "Delegate finished.";
+#endif
         m_timer->stop();
         emit finished();
         return;
