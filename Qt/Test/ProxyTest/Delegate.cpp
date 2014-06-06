@@ -1,11 +1,14 @@
 #include "Delegate.h"
 #include <QDebug>
 #include <QTimer>
+#include <QThread>
+
 
 Delegate::Delegate(QObject *parent) :
     Protocol(parent),
     m_value(0)
 {
+
 }
 
 int Delegate::value() const
@@ -21,7 +24,7 @@ void Delegate::setValue(int value)
 void Delegate::start()
 {
 #ifdef QT_DEBUG
-    qDebug() << "Delegate starting...";
+        qDebug() << "Delegate starting...";
 #endif
     m_timer = new QTimer(this);
     connect(m_timer, SIGNAL(timeout()), this, SLOT(update()));
@@ -39,6 +42,7 @@ void Delegate::update()
         emit finished();
         return;
     }
+
     m_value += 1;
     emit updated();
 }

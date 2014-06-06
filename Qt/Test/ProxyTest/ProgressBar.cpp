@@ -2,7 +2,6 @@
 
 #include <QDebug>
 
-
 ProgressBar::ProgressBar(QWidget *parent) :
     QProgressBar(parent)
 {
@@ -19,6 +18,7 @@ ProgressBar::~ProgressBar()
 void ProgressBar::setDelegate(Delegate *delegate)
 {
     m_delegate = delegate;
+
     connect( m_delegate, SIGNAL(updated()), this, SLOT(updated()) );
 }
 

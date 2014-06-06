@@ -20,14 +20,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::addProgressbar()
 {
-//    for(int i = 0; i < 1000; i++)
-    {
-        ProgressBar *bar = new ProgressBar(this);
-        ui->verticalLayout->addWidget(bar);
+    ProgressBar *bar = new ProgressBar(this);
+    ui->verticalLayout->addWidget(bar);
 
-        Delegate *delegate = new Delegate;
-        bar->setDelegate(delegate);
-        bar->start();
-    }
-
+    Delegate *delegate = new Delegate;
+    bar->setDelegate(delegate);
+    bar->start();
 }
