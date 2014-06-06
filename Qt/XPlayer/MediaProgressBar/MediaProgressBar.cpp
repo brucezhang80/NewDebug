@@ -20,6 +20,6 @@ MediaProgressBar::MediaProgressBar(QWidget *parent) :
 
 void MediaProgressBar::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Bottom);
+//    m_animate->setAnimate(this, StateMachineServer::Bottom);
     QWidget::resizeEvent(event);
 }

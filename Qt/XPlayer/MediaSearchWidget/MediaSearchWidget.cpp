@@ -69,6 +69,6 @@ void MediaSearchWidget::searchMusic()
 
 void MediaSearchWidget::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Top);
+//    m_animate->setAnimate(this, StateMachineServer::Top);
     QWidget::resizeEvent(event);
 }

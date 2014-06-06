@@ -1,9 +1,11 @@
 HEADERS += \
-    MediaPlayListWidget/MediaItemView.h \
     MediaPlayListWidget/MediaItemDelegate.h \
-    MediaPlayListWidget/MediaPlayListWidget.h
+    MediaPlayListWidget/MediaPlayListWidget.h \
+    MediaPlayListWidget/MediaPlayListView.h \
+    MediaPlayListWidget/AlbumList.h
 
 SOURCES += \
-    MediaPlayListWidget/MediaItemView.cpp \
     MediaPlayListWidget/MediaItemDelegate.cpp \
-    MediaPlayListWidget/MediaPlayListWidget.cpp
+    MediaPlayListWidget/MediaPlayListWidget.cpp \
+    MediaPlayListWidget/MediaPlayListView.cpp \
+    MediaPlayListWidget/AlbumList.cpp

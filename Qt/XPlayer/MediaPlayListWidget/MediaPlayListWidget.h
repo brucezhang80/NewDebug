@@ -20,7 +20,7 @@
 #include <QWidget>
 #include "StateMachineServer/StateMachineServer.h"
 
-class MediaItemView;
+class MediaPlayListView;
 
 class MediaPlayListWidget : public QWidget
 {
@@ -38,7 +38,7 @@ protected:
     void resizeEvent(QResizeEvent *);
 
 private:
-    MediaItemView*           m_mediaItemView;
+    MediaPlayListView*           m_mediaPlaylistView;
     StateMachineServer*      m_animate;
 };
 

@@ -15,10 +15,8 @@
 **************************************************************************/
 
 #include "NetMusicManager.h"
-<<<<<<< .mine
+
 //#include "Json.h"
-=======
->>>>>>> .r260
 
 #include <QNetworkAccessManager>
 #include <QDir>

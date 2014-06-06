@@ -27,12 +27,12 @@ MediaAlbumWidget::MediaAlbumWidget(QWidget *parent) :
     m_animate = new StateMachineServer;
 
 //    this->setMinimumSize(QSize(200, 320));
-    QListView* listView = new QListView();
+    QListView* listView = new QListView(this);
     listView->setMouseTracking(true);
     QGridLayout *gridLayout = new QGridLayout(this);
     gridLayout->setContentsMargins(0,0,0,0);
     gridLayout->setSpacing(0);
-    QToolButton* arrowBtn = new QToolButton();
+    QToolButton* arrowBtn = new QToolButton(this);
     arrowBtn->setCursor(QCursor(Qt::PointingHandCursor));
     arrowBtn->setFixedSize(20, 20);
     arrowBtn->setIconSize( QSize(20, 20) );
@@ -52,6 +52,6 @@ void MediaAlbumWidget::resetAnimate()
 
 void MediaAlbumWidget::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Left);
+//    m_animate->setAnimate(this, StateMachineServer::Left);
     QWidget::resizeEvent(event);
 }

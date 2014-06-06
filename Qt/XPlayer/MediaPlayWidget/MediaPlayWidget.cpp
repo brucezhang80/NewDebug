@@ -60,6 +60,6 @@ void MediaPlayWidget::play(bool pause)
 
 void MediaPlayWidget::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Bottom);
+//    m_animate->setAnimate(this, StateMachineServer::Bottom);
     QWidget::resizeEvent(event);
 }

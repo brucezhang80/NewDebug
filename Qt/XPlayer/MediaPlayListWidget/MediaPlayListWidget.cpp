@@ -15,7 +15,7 @@
 **************************************************************************/
 
 #include "MediaPlayListWidget.h"
-#include "MediaItemView.h"
+#include "MediaPlayListView.h"
 
 #include <QTableView>
 #include <QGridLayout>
@@ -25,11 +25,10 @@
 MediaPlayListWidget::MediaPlayListWidget(QWidget *parent) :
     QWidget(parent)
 {
-    m_mediaItemView = new MediaItemView();
+    m_mediaPlaylistView = new MediaPlayListView(this);
     m_animate = new StateMachineServer;
-    QGridLayout *gridLayout = new QGridLayout(this);
 
-    m_mediaItemView->setMouseTracking(true);
+    QGridLayout *gridLayout = new QGridLayout(this);
     gridLayout->setContentsMargins(0,0,0,0);
     gridLayout->setSpacing(0);
     QToolButton* arrowBtn = new QToolButton();
@@ -41,7 +40,7 @@ MediaPlayListWidget::MediaPlayListWidget(QWidget *parent) :
 //                          tableView->pos().y()+tableView->height()/2,
 //                          arrowBtn->width(), arrowBtn->height());
     gridLayout->addWidget(arrowBtn, 0, 1, 1, 1);
-    gridLayout->addWidget(m_mediaItemView, 0, 2, 1, 1);
+    gridLayout->addWidget(m_mediaPlaylistView, 0, 2, 1, 1);
 
 //    connect(arrowBtn, SIGNAL(clicked(bool)), m_animate, SIGNAL(transShow(bool)) );
     connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
@@ -51,6 +50,6 @@ MediaPlayListWidget::MediaPlayListWidget(QWidget *parent) :
 
 void MediaPlayListWidget::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Right);
+//    m_animate->setAnimate(this, StateMachineServer::Right);
     QWidget::resizeEvent(event);
 }

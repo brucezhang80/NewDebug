@@ -32,6 +32,9 @@ XPlayer::XPlayer(QObject *parent)
     : QObject(parent)
 {
     m_mainWindowEx = new MainWindowEx;
+    m_mainWindowEx->setAttribute(Qt::WA_TranslucentBackground, false);
+    m_mainWindowEx->setAttribute(Qt::WA_NoSystemBackground, false);
+
     m_mainWindowEx->mainMenuBar()->hide();
     m_mainWindowEx->mainToolBar()->hide();
     m_mainWindowEx->mainStatusBar()->hide();
@@ -68,6 +71,7 @@ XPlayer::XPlayer(QObject *parent)
     splitter->setStretchFactor(1, 75);
 //    splitter->setAttribute(Qt::WA_TransparentForMouseEvents,true);
     gridLayout->addWidget(splitter, 1, 0, 1, 5);
+
 
     m_mediaProgressBar = new MediaProgressBar(centralWidget);
     gridLayout->addWidget(m_mediaProgressBar, 2, 0, 1, 5);
@@ -133,26 +137,6 @@ void XPlayer::enableAnimate(bool enabled)
 
         connect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaPlayWidget, SIGNAL(animateShow()) );
         connect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaPlayWidget, SIGNAL(animateHide()) );
-    }
-    else
-    {
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaSearchWidget, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaSearchWidget, SIGNAL(animateHide()) );
-
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaHintButtonWidget, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaHintButtonWidget, SIGNAL(animateHide()) );
-
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaAlbumWidget, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaAlbumWidget, SIGNAL(animateHide()) );
-
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaPlayListWidget, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaPlayListWidget, SIGNAL(animateHide()) );
-
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaProgressBar, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaProgressBar, SIGNAL(animateHide()) );
-
-        disconnect(m_mainWindowEx, SIGNAL(hoverEnter()),m_mediaPlayWidget, SIGNAL(animateShow()) );
-        disconnect(m_mainWindowEx, SIGNAL(hoverLeave()),m_mediaPlayWidget, SIGNAL(animateHide()) );
     }
 }
 

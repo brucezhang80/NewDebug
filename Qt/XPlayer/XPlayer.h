@@ -29,7 +29,6 @@
 
 #include <QLabel>
 
-
 class XPlayer : public QObject
 {
 public:
@@ -58,7 +57,6 @@ private:
     NetMusicManager*        m_netMusicManager;
 
     QLabel*                 m_windowTitle;
-
 };
 
 #endif // XPLAYER_H

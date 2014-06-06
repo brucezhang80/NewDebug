@@ -42,7 +42,7 @@ MainWindowEx::MainWindowEx(QWidget *parent) :
     ui->setupUi(this);
     this->setAttribute(Qt::WA_TranslucentBackground, false);
     this->setAttribute(Qt::WA_NoSystemBackground, false);
-    this->resize(680, 420);
+    this->resize(960, 580);
 
     // Handle window creation.
     RECT rcClient;
@@ -108,15 +108,21 @@ bool MainWindowEx::hitTestNCA(MSG *msg, long *result)
 
     int x = GET_X_LPARAM(msg->lParam);
     int y = GET_Y_LPARAM(msg->lParam);
+
     //    qDebug() << this->childAt(QPoint(x - rcWindow.left, y - rcWindow.top))->objectName();
     if (this->childAt(QPoint(x - rcWindow.left, y - rcWindow.top)) == ui->centralWidget)
     {
+        // Determine if the hit test is for resizing. Default middle (1,1).
         USHORT uRow = 1;
         USHORT uCol = 1;
+//        bool fOnResizeBorder = false;
 
         // Determine if the point is at the top or bottom of the window.
         if (y >= rcWindow.top && y < rcWindow.top + style()->pixelMetric(QStyle::PM_MDIFrameWidth))
+        {
+//            fOnResizeBorder = (y < (rcWindow.top - rcFrame.top));
             uRow = 0;
+        }
         else if (y < rcWindow.bottom && y >= rcWindow.bottom - style()->pixelMetric(QStyle::PM_MDIFrameWidth))
             uRow = 2;
 
@@ -128,7 +134,7 @@ bool MainWindowEx::hitTestNCA(MSG *msg, long *result)
 
         LRESULT hitTests[3][3] =
                 {
-                    { HTTOPLEFT,    HTTOP,          HTTOPRIGHT },
+                    { HTTOPLEFT,    /*fOnResizeBorder ? */HTTOP /*: HTCAPTION*/,          HTTOPRIGHT },
                     { HTLEFT,       HTCAPTION,      HTRIGHT },
                     { HTBOTTOMLEFT, HTBOTTOM,       HTBOTTOMRIGHT },
                 };
@@ -171,7 +177,9 @@ bool MainWindowEx::winEvent(MSG *msg, long *result)
     {
         // 鼠标在窗口边缘时，缩放可用
         case WM_NCHITTEST:
+        {
             return hitTestNCA(msg, result);
+        }
 
         // Handle window activation.
         case WM_ACTIVATE:
@@ -265,6 +273,7 @@ bool MainWindowEx::winEvent(MSG *msg, long *result)
 
 bool MainWindowEx::nativeEvent(const QByteArray &/*eventType*/, void *message, long *result)
 {
+//    MSG* msg = reinterpret_cast<MSG*>(message);
     return winEvent((MSG*)message, result);
 }
 

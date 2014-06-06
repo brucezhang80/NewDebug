@@ -74,6 +74,6 @@ void MediaHintButtonWidget::resetAnimate()
 
 void MediaHintButtonWidget::resizeEvent(QResizeEvent *event)
 {
-    m_animate->setAnimate(this, StateMachineServer::Top);
+//    m_animate->setAnimate(this, StateMachineServer::Top);
     QWidget::resizeEvent(event);
 }
