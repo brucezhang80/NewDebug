@@ -1,5 +1,0 @@
-	on btn_maxPath pressed do 
-	(
-		savepath = getSavePath caption:"ÇëÑ¡Ôñ±£´æÄ¿Â¼"		
-		try edt_maxPath.text = savepath + "\\" catch()
-	)

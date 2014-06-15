@@ -1,4 +1,0 @@
---收集所有半径小于5的Sphere类对象
-little_sphere = 
-for i in $* collect
-   if classof i = = sphere and i.radius < 5 then i else DontCollect

@@ -1,7 +1,0 @@
-fn FormatObj obj=
-(
-	if (classof obj == Editable_mesh)do
-	(
-		update obj geometry:true topology:true normals:true
-	)
-)

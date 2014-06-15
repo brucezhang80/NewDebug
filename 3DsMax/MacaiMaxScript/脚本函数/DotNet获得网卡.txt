@@ -1,5 +1,0 @@
-NWIF = dotnetClass "System.Net.NetworkInformation.NetworkInterface"
-the_Mac_array = NWIF.GetAllNetworkInterfaces() -- this is an array of all the Networks
-the_PhysicalAddress_Array = #()
-for net in the_Mac_array where (net.NetworkInterfaceType.toString()) == "Ethernet" do append the_PhysicalAddress_Array ((net.GetPhysicalAddress()).toString())
-print the_PhysicalAddress_Array

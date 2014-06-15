@@ -1,7 +1,0 @@
-fn getallmaxfiles=
-(
-	get_path=getfilenamepath (getSourceFileName())--ÎÄ¼þ¼ÐÂ·¾¶
-	ext="*.max"	allmaxs=(DotNetClass"System.IO.Directory").GetFiles 
-	get_path ext (DotNetClass "System.IO.SearchOption").AllDirectories	
-	return allmaxs
-)

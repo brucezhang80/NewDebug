@@ -1,9 +1,0 @@
-	on btn_openRsc pressed do 
-	(
-		if edt_maxPath.text != "" then 
-		(		
-			cmd = "start" + " " + edt_maxPath.text		
-			DOSCommand cmd
-		)
-		else messagebox "还没有指定路径"
-	)

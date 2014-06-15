@@ -1,9 +1,0 @@
-str = @"C:\Program Files (x86)\Autodesk\3ds Max 2010 SDK\maxsdk\ProjectSettings\AdditionalCompilerOptio  ns.Readme.txt"
-fn truncateString  str width:200 = if (gettextextent str).x > width then
-(
-	width -= (gettextextent "...").x
-	local new  
-	for k=1 to str.count while (gettextextent (new = substring str k -1)).x > width do ()
-	"..." + new
-) else str
-truncateString  str
