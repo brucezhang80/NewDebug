@@ -163,7 +163,7 @@ string Student::getTelphone() const
 void Student::setSex(const string &sex)
 {
     // 默认是"男"
-    if( sex != "男" && sex != "女")
+    if( sex != "男" || sex != "女")
         return;
 
     m_sex = sex;
