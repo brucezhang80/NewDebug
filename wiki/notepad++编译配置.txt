@@ -1,0 +1,39 @@
+java:
+1.安装nppExeu插件
+2.在nppExeu菜单项Execute的Command(s)编辑：
+	npp_save
+	javac  $(FILE_NAME)
+	java  $(NAME_PART)
+并Save...成"编译运行java文件"
+3.启用nppExeu菜单项的Follow $(CURRENT_DIRECTORY)
+4.打开nppExec菜单项 Advanced Options,在Associated script下拉菜单中选择"编译运行java文件",OK.(如果要添加到npp宏菜单栏上,勾上Place to the Macros submenu选项)
+
+c++:
+1.设置系统环境变量
+	setx LIB "(Program Files)\Microsoft Visual Studio 12.0\VC\lib;(Program Files)\Microsoft SDKs\Windows\v7.0A\Lib"
+	setx INCLUDE "(Program Files)\Microsoft Visual Studio 12.0\VC\include;(Program Files)\Microsoft SDKs\Windows\v7.0A\Include"
+	setx PATH "%PATH%;(Program Files)\Microsoft Visual Studio 12.0\VC\bin;"
+2.VS2012以下版本需要调整编译器需要的文件
+	在(Program Files)\Microsoft Visual Studio 10.0\Common7\IDE\目录下，找到两个文件"mspdb100.dll"和"mspdbsrv.exe"，一并复制到(Program Files)\Microsoft Visual Studio 10.0\VC\bin下
+
+3.安装nppExeu插件
+4.在nppExeu菜单项Execute的Command(s)编辑：
+	npp_save
+	调试: cmd /k chdir /d "$(CURRENT_DIRECTORY)" & cl "$(FILE_NAME)" & echo Running: & "$(NAME_PART).exe" & PAUSE & EXIT 
+	编译:cmd /k chdir /d "$(CURRENT_DIRECTORY)" & cl "$(FILE_NAME)" & PAUSE & EXIT
+	运行:cmd /k chdir /d "$(CURRENT_DIRECTORY)" & echo Running: & "$(NAME_PART).exe" & PAUSE & EXIT
+
+并Save...成"编译C++文件"
+5.打开nppExec菜单项 Advanced Options,在Associated script下拉菜单中选择""编译C++文件",OK.(如果要添加到npp宏菜单栏上,勾上Place to the Macros submenu选项)
+
+或者：直接在npp的运行菜单上分别添加调试/编译/运行的命令
+
+python：
+1.安装nppExeu插件
+2.在nppExeu菜单项Execute的Command(s)编辑：
+	npp_save
+	python $(FILE_NAME)
+并Save...成"运行Python文件"（注意添加Python的安装路径如D:\python2.7\python $(FILE_NAME)）
+4.打开nppExec菜单项 Advanced Options,在Associated script下拉菜单中选择""运行Python文件",OK.(如果要添加到npp宏菜单栏上,勾上Place to the Macros submenu选项)
+
+（其他语言配置类似）
