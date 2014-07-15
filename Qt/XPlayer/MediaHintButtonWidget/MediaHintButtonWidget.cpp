@@ -22,7 +22,7 @@
 MediaHintButtonWidget::MediaHintButtonWidget(QWidget *parent) :
     QWidget(parent)
 {
-    m_animate = new StateMachineServer;
+//    m_animate = new StateMachineServer;
 
     this->setMinimumSize(80, 20);
     this->setFixedSize(80, 20);
@@ -61,8 +61,8 @@ MediaHintButtonWidget::MediaHintButtonWidget(QWidget *parent) :
     connect( closeBtn, SIGNAL(clicked()), this, SIGNAL(closed()) );
     connect( maximizedBtn, SIGNAL(clicked()), this, SIGNAL(maximized()) );
     connect( minimizedBtn, SIGNAL(clicked()), this, SIGNAL(minimized()) );
-    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
-    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
+//    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
+//    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
 
 }
 

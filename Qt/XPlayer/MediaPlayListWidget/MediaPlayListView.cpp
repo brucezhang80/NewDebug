@@ -63,19 +63,19 @@ MediaPlayListView::MediaPlayListView(QWidget *parent) :
     for( int i = 0; i < 12; ++i)
         album2->addSong(list);
 
-    AlbumList *album3 = new AlbumList(this);
-    this->addTopLevelItem( album3 );
-    for( int i = 0; i < 10; ++i)
-        album3->addSong(list);
+//    AlbumList *album3 = new AlbumList(this);
+//    this->addTopLevelItem( album3 );
+//    for( int i = 0; i < 10; ++i)
+//        album3->addSong(list);
 
 
-    for( int i = 0; i < 40; ++i)
-    {
-        AlbumList *album4 = new AlbumList(this);
-        this->addTopLevelItem( album4 );
-        for(int j = 0; j < 10; ++j)
-            album4->addSong(list);
-    }
+//    for( int i = 0; i < 40; ++i)
+//    {
+//        AlbumList *album4 = new AlbumList(this);
+//        this->addTopLevelItem( album4 );
+//        for(int j = 0; j < 10; ++j)
+//            album4->addSong(list);
+//    }
 
 // 连接信号槽
     connect(this, SIGNAL(itemPressed(QTreeWidgetItem*,int)),

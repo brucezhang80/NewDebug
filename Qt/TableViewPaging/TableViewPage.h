@@ -29,6 +29,8 @@
 #include <QApplication>
 #include <QMouseEvent>
 #include <QHeaderView>
+#include <QComboBox>
+
 #include <QDebug>
 
 class QSqlDatabase;
@@ -216,6 +218,14 @@ public:
         else if(index.column() == AUTHOR)
         {
             pen.setColor(QColor(40,240,25));
+            QStyleOptionComboBox *comboboxOpt = new QStyleOptionComboBox;
+            comboboxOpt->rect = option.rect;
+            comboboxOpt->state = option.state;
+            comboboxOpt->state |= QStyle::State_Enabled;
+            comboboxOpt->editable = false;
+            comboboxOpt->currentText = "text";
+//            comboboxOpt->rect = ComboBoxRect(option);
+            QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, comboboxOpt, painter);
         }
         else if(index.column() == CONTENT)
         {
@@ -278,6 +288,19 @@ public:
                              viewItemStyleOptions.rect.y() + viewItemStyleOptions.rect.height() / 2 - checkBoxRect.height() / 2);
         //返回QCheckBox几何形状
         return QRect(checkBoxPoint, checkBoxRect.size());
+    }
+
+    QRect ComboBoxRect(const QStyleOptionViewItemV4 &viewItemStyleOptions)const
+    {
+        //绘制按钮所需要的参数
+        QStyleOptionComplex comboBoxStyleOption;
+        //按照给定的风格参数 返回元素子区域
+        QRect comboBoxRect = QApplication::style()->subControlRect(QStyle::CC_ComboBox, &comboBoxStyleOption, QStyle::SC_ComboBoxEditField);
+        //返回QCheckBox坐标
+        QPoint comboBoxPoint(viewItemStyleOptions.rect.x() + viewItemStyleOptions.rect.width()  + comboBoxRect.width() ,
+                             viewItemStyleOptions.rect.y() + viewItemStyleOptions.rect.height() / 2 - comboBoxRect.height() / 2);
+        //返回QCheckBox几何形状
+        return QRect(comboBoxPoint, comboBoxRect.size());
     }
 };
 

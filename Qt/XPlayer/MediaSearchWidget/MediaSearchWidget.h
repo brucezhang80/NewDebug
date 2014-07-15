@@ -18,7 +18,7 @@
 #define MEDIASEARCHWIDGET_H
 
 #include <QWidget>
-#include "StateMachineServer/StateMachineServer.h"
+//#include "StateMachineServer/StateMachineServer.h"
 
 QT_BEGIN_NAMESPACE
 class QLineEdit;
@@ -43,7 +43,7 @@ protected:
 
 private:
     QLineEdit*      m_searchKeyEdit;
-    StateMachineServer*      m_animate;
+//    StateMachineServer*      m_animate;
 };
 
 #endif // MEDIASEARCHWIDGET_H

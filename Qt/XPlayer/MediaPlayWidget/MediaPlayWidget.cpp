@@ -14,7 +14,7 @@ MediaPlayWidget::MediaPlayWidget(QWidget *parent) :
     this->setMaximumHeight(66);
 //    setAttribute(Qt::WA_TransparentForMouseEvents,true);
 
-    m_animate = new StateMachineServer;
+//    m_animate = new StateMachineServer;
 
     QToolButton* prevBtn = new QToolButton;
     prevBtn->setCursor(QCursor(Qt::PointingHandCursor));
@@ -45,8 +45,8 @@ MediaPlayWidget::MediaPlayWidget(QWidget *parent) :
 
     connect( playBtn, SIGNAL(clicked(bool)), this, SLOT(play(bool)) );
 
-    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
-    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
+//    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
+//    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
 }
 
 void MediaPlayWidget::play(bool pause)

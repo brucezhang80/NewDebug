@@ -4,7 +4,7 @@
 //#include <QWidget>
 #include <QProgressBar>
 //#include <QLabel>
-#include "StateMachineServer/StateMachineServer.h"
+//#include "StateMachineServer/StateMachineServer.h"
 
 class MediaProgressBar : public QProgressBar
 {
@@ -24,7 +24,7 @@ protected:
 private:
 //    QProgressBar*       m_progressBar;
 //    QLabel*             m_timeLeft;
-    StateMachineServer*      m_animate;
+//    StateMachineServer*      m_animate;
 };
 
 #endif // MEDIAPROGRESSBAR_H

@@ -18,7 +18,7 @@
 #define MEDIAHINTBUTTONWIDGET_H
 
 #include <QWidget>
-#include "StateMachineServer/StateMachineServer.h"
+//#include "StateMachineServer/StateMachineServer.h"
 
 class MediaHintButtonWidget : public QWidget
 {
@@ -42,7 +42,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
 
 private:
-    StateMachineServer*      m_animate;
+//    StateMachineServer*      m_animate;
 };
 
 #endif // MEDIAHINTBUTTONWIDGET_H

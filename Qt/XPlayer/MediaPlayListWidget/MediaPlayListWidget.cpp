@@ -26,7 +26,7 @@ MediaPlayListWidget::MediaPlayListWidget(QWidget *parent) :
     QWidget(parent)
 {
     m_mediaPlaylistView = new MediaPlayListView(this);
-    m_animate = new StateMachineServer;
+//    m_animate = new StateMachineServer;
 
     QGridLayout *gridLayout = new QGridLayout(this);
     gridLayout->setContentsMargins(0,0,0,0);
@@ -43,8 +43,8 @@ MediaPlayListWidget::MediaPlayListWidget(QWidget *parent) :
     gridLayout->addWidget(m_mediaPlaylistView, 0, 2, 1, 1);
 
 //    connect(arrowBtn, SIGNAL(clicked(bool)), m_animate, SIGNAL(transShow(bool)) );
-    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
-    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
+//    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
+//    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
 
 }
 

@@ -22,7 +22,7 @@
 MediaSearchWidget::MediaSearchWidget(QWidget *parent) :
     QWidget(parent)
 {
-    m_animate = new StateMachineServer;
+//    m_animate = new StateMachineServer;
 
     this->setMinimumSize(160, 20);
     this->setFixedSize(160, 20);
@@ -56,8 +56,8 @@ MediaSearchWidget::MediaSearchWidget(QWidget *parent) :
     this->setLayout(hLayout);
 
     connect(searchBtn, SIGNAL(clicked()), this, SLOT(searchMusic()) );
-    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
-    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
+//    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
+//    /connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
 
 }
 

@@ -24,8 +24,8 @@ int main(int argc, char *argv[])
 
     QTextCodec *codec = QTextCodec::codecForName("UTF-8");
     QTextCodec::setCodecForLocale(codec);
-    QTextCodec::setCodecForCStrings(codec);
-    QTextCodec::setCodecForTr(codec);
+//    QTextCodec::setCodecForCStrings(codec);
+//    QTextCodec::setCodecForTr(codec);
 
     QFile file(":/style.qss");
     if( file.open(QIODevice::ReadOnly | QIODevice::Text) )

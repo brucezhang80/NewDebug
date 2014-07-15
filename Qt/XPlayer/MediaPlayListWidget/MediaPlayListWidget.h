@@ -18,7 +18,7 @@
 #define MEDIAITEMWIDGET_H
 
 #include <QWidget>
-#include "StateMachineServer/StateMachineServer.h"
+//#include "StateMachineServer/StateMachineServer.h"
 
 class MediaPlayListView;
 
@@ -39,7 +39,7 @@ protected:
 
 private:
     MediaPlayListView*           m_mediaPlaylistView;
-    StateMachineServer*      m_animate;
+//    StateMachineServer*      m_animate;
 };
 
 #endif // MEDIAITEMWIDGET_H

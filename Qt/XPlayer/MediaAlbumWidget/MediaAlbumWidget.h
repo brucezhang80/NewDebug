@@ -18,7 +18,7 @@
 #define MEDIAALBUMWIDGET_H
 
 #include <QWidget>
-#include "StateMachineServer/StateMachineServer.h"
+//#include "StateMachineServer/StateMachineServer.h"
 
 class MediaAlbumWidget : public QWidget
 {
@@ -37,7 +37,7 @@ protected:
     void resizeEvent(QResizeEvent *event);
 
 private:
-    StateMachineServer*      m_animate;
+//    StateMachineServer*      m_animate;
 };
 
 #endif // MEDIAALBUMWIDGET_H

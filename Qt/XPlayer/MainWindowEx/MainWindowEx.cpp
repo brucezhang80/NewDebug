@@ -53,7 +53,7 @@ MainWindowEx::MainWindowEx(QWidget *parent) :
     SetWindowPos((HWND)this->winId(),
                  NULL,
                  rcClient.left, rcClient.top,
-                 rcClient.right - rcClient.left,
+                 rcClient.right - rcClient.left+10,
                  rcClient.bottom - rcClient.top,
                  SWP_FRAMECHANGED);
 }

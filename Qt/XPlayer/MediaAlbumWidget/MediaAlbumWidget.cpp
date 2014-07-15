@@ -24,7 +24,7 @@
 MediaAlbumWidget::MediaAlbumWidget(QWidget *parent) :
     QWidget(parent)
 {
-    m_animate = new StateMachineServer;
+//    m_animate = new StateMachineServer;
 
 //    this->setMinimumSize(QSize(200, 320));
     QListView* listView = new QListView(this);
@@ -41,13 +41,13 @@ MediaAlbumWidget::MediaAlbumWidget(QWidget *parent) :
     gridLayout->addWidget(listView, 0, 1, 1, 1);
 //    gridLayout->addWidget(arrowBtn, 0, 2, 1, 1);
 
-    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
-    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
+//    connect(this, SIGNAL(animateHide()), m_animate, SIGNAL(transHide()) );
+//    connect(this, SIGNAL(animateShow()), m_animate, SIGNAL(transShow()) );
 }
 
 void MediaAlbumWidget::resetAnimate()
 {
-    m_animate->setAnimate(this, StateMachineServer::Left);
+//    m_animate->setAnimate(this, StateMachineServer::Left);
 }
 
 void MediaAlbumWidget::resizeEvent(QResizeEvent *event)
